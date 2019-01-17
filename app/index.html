@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .container > div {
+      box-sizing: border-box;
+      width: 48%;
+      background: #eee;
+      padding: 50px 20px;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+  </style>
+  <div id="app">
+    <h1>test #1 - encoding with nodejs crypto utf-8 to hex using aes-256</h1>
+    <div class="container">
+      <div>
+        <input type="text" id="text">
+        <button id="encode">encode</button>
+      </div>
+      <div>
+        <input type="text" id="encoded">
+        <input type="text" id="key">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
