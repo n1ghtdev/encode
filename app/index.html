@@ -5,36 +5,199 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-  <style>
-    .container {
-      display: flex;
-      justify-content: space-between;
-    }
-    .container > div {
-      box-sizing: border-box;
-      width: 48%;
-      background: #eee;
-      padding: 50px 20px;
-      display: flex;
-      flex-flow: column nowrap;
-    }
-    input {
-      margin-bottom: 20px;
-    }
-  </style>
+  <div class="loader">
+    <span class="spinner-border text-primary"></span>
+  </div>
+  <div class="enc-modal enc-modal--off" role="dialog" id="encrypt-modal">
+    <div class="enc-modal__dialog" role="document">
+      <div class="enc-modal__content">
+        <div class="enc-modal__header">
+          <h5 class="enc-modal__title">Text has been encrypted successfully</h5>
+          <button type="button" class="close" data-role="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="enc-modal__body">
+          <div class="form-group">
+            <label for="encryptedText">Encrypted text</label>
+            <textarea id="encryptedText" type="text" class="form-control" rows="5" disabled></textarea>
+          </div>
+          <div class="form-group">
+            <label for="encryptedKey">Key</label>
+            <input id="encryptedKey" type="text" class="form-control" disabled>
+          </div>
+          <div class="form-group">
+            <label for="encryptedIVKey">Initialization Vector (IV):</label>
+            <input id="encryptedIVKey" type="text" class="form-control" disabled>
+          </div>
+        </div>
+        <div class="enc-modal__footer">
+          <button data-role="close" type="button" class="btn btn-secondary">Close</button>
+          <a data-role="save" class="btn btn-primary">Save to JSON</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="enc-modal enc-modal--off" role="dialog" id="decrypt-modal">
+    <div class="enc-modal__dialog" role="document">
+      <div class="enc-modal__content">
+        <div class="enc-modal__header">
+          <h5 class="enc-modal__title">Text has been decrypted successfully</h5>
+          <button type="button" class="close" data-role="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="enc-modal__body">
+          <div class="form-group">
+            <label for="decryptedText">Decrypted text</label>
+            <textarea id="decryptedText" type="text" class="form-control" rows="5" disabled></textarea>
+          </div>
+        </div>
+        <div class="enc-modal__footer">
+          <button data-role="close" type="button" class="btn btn-secondary">Close</button>
+          <a data-role="save" class="btn btn-primary">Save to JSON</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="app">
-    <h1>test #1 - encoding with nodejs crypto utf-8 to hex using aes-256</h1>
-    <div class="container">
-      <div>
-        <input type="text" id="text">
-        <button id="encode">encode</button>
+    <header class="app-header bg-dark">
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+            <h1 class="app-header__logotype">encode</h1>
+          </div>
+          <div class="col-10 d-flex align-items-center">
+            <nav class="app-header__nav">
+              <ul class="app-header__list">
+                <li class="app-header__item"><a href="#">how it works</a></li>
+                <li class="app-header__item"><a href="#">about</a></li>
+                <li class="app-header__item"><a href="#">development</a></li>
+                <li class="app-header__item"><a href="#">authorize</a></li>
+                <li class="app-header__item app-header__item--dropdown">
+                  <a href="#">language</a>
+                  <ul class="app-header__dropdown-list">
+                    <li class="app-header__dropdown-item">en</li>
+                    <li class="app-header__dropdown-item">ru</li>
+                    <li class="app-header__dropdown-item">ua</li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
-      <div>
-        <input type="text" id="encoded">
-        <input type="text" id="key">
-      </div>
+    </header>
+    <div class="main">
+      <section class="nav">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 p-0">
+              <div data-tab-index="0" class="nav__item bg-primary text-center">ENCRYPT</div>
+            </div>
+            <div class="col-xs-12 col-sm-6 p-0">
+              <div data-tab-index="1" class="nav__item bg-danger text-center" id="">DECRYPT</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="content">
+        <div class="container tab" data-tab="0">
+          <div class="row">
+            <div class="col-12 text-center content__header">
+              <h2 class="content__title">encrypt</h2>
+              <p class="content__subtitle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae distinctio nobis nesciunt iure quia temporibus.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <form action="#" class="form" id="encrypt">
+                <div class="form-group">
+                  <label for="encryptText">Text to encrypt</label>
+                  <textarea class="form-control" id="encryptText" rows="7"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="encryptAlgo">Choose encryption algorithm</label>
+                  <select class="form-control" id="encryptAlgo">
+                    <option value="aes-256-ctr">AES-256-CTR</option>
+                    <option value="aes-256-cbc">AES-256-CBC</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="encryptEncodeFrom">Choose your text encoding</label>
+                  <select id="encryptEncodeFrom" class="form-control">
+                    <option value="utf8">UTF-8</option>
+                    <option value="hex">HEX</option>
+                    <option value="base64">Base64</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                    <label for="encryptEncodeTo">Encode to</label>
+                    <select id="encryptEncodeTo" class="form-control">
+                      <option value="utf8">UTF-8</option>
+                      <option value="hex">HEX</option>
+                      <option value="base64">Base64</option>
+                    </select>
+                  </div>
+                <button class="btn btn-success btn-block" id="encrypt-btn">encrypt</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="container tab" data-tab="1">
+            <div class="row">
+              <div class="col-12 text-center content__header">
+                <h2 class="content__title">decrypt</h2>
+                <p class="content__subtitle">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae distinctio nobis nesciunt iure quia temporibus.</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <form action="#" class="form" id="decrypt">
+                  <div class="form-group">
+                    <label for="decryptText">Text to decrypt</label>
+                    <textarea class="form-control" id="decryptText" rows="7"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="decryptText">Key (hex)</label>
+                    <input type="text" class="form-control" id="decryptKey">
+                  </div>
+                  <div class="form-group">
+                    <label for="decryptText">Initialization Vector (hex)</label>
+                    <input type="text" class="form-control" id="decryptIV">
+                  </div>
+                  <div class="form-group">
+                    <label for="decryptAlgo">Choose decryption algorithm</label>
+                    <select class="form-control" id="decryptAlgo">
+                      <option value="aes-256-ctr">AES-256-CTR</option>
+                      <option value="aes-256-cbc">AES-256-CBC</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="decryptEncodeFrom">Choose your text encoding</label>
+                    <select id="decryptEncodeFrom" class="form-control">
+                      <option value="base64">Base64</option>
+                      <option value="hex">HEX</option>
+                      <option value="utf8">UTF-8</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="decryptEncodeTo">Decode to</label>
+                      <select id="decryptEncodeTo" class="form-control">
+                        <option value="utf8">UTF-8</option>
+                        <option value="hex">HEX</option>
+                        <option value="base64">Base64</option>
+                      </select>
+                    </div>
+                  <button class="btn btn-success btn-block" id="decrypt-btn">decrypt</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </section>
     </div>
   </div>
 </body>
