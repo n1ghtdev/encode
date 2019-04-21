@@ -1,5 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -12,11 +14,50 @@ module.exports = require('./webpack.base.babel')({
   },
   optimization: {
     minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          warnings: false,
+          compress: {
+            comparisons: false,
+          },
+          parse: {},
+          mangle: true,
+          output: {
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+        cache: true,
+        sourceMap: true,
+      }),
+    ],
     nodeEnv: 'production',
     sideEffects: true,
     concatenateModules: true,
-    splitChunks: { chunks: 'all' },
-    runtimeChunk: true,
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: true,
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+        main: {
+          chunks: 'all',
+          minChunks: 2,
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+      },
+    },
+    runtimeChunk: false,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -34,6 +75,12 @@ module.exports = require('./webpack.base.babel')({
         minifyURLs: true,
       },
       inject: true,
+    }),
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
     }),
   ],
   performance: {

@@ -11,12 +11,12 @@ const eventHandler = (e) => {
         el.classList.add('enc-modal--off');
       });
     } else if (e.target.getAttribute('data-role') === 'save') {
-      saveToJSON(e.target);
+      setJSONHrefToButton(e.target);
     }
   }
 };
 
-const saveToJSON = (btn) => {
+const setJSONHrefToButton = (btn) => {
   if (jsonData !== undefined || jsonData !== null || jsonData !== '') {
     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(jsonData))}`;
     btn.setAttribute('href', dataStr);

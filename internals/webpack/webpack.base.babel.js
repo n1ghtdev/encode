@@ -1,5 +1,5 @@
-import webpack from 'webpack';
 import path from 'path';
+import webpack from 'webpack';
 
 process.noDeprecation = true;
 
@@ -31,8 +31,20 @@ module.exports = (options) => ({
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
+        test: /\.(eot|otf|ttf|woff|woff2)$/,
         use: 'file-loader',
+      },
+      {
+        test: /\.json$/,
+        exclude: /node_modules/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'image-webpack-loader',
+        },
       },
       {
         test: /\.(jpg|png|gif)$/,
@@ -89,12 +101,11 @@ module.exports = (options) => ({
   ]),
 
   resolve: {
-    modules: ['node_modules', 'src'],
+    modules: ['src', 'node_modules'],
     extensions: ['.js', '.jsx'],
   },
 
   devtool: options.devtool,
-  devServer: options.devServer || {},
   target: 'web',
   performance: options.performance || {},
 

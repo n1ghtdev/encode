@@ -6,7 +6,7 @@ const plugins = [
   new webpack.HotModuleReplacementPlugin(),
   new HtmlWebpackPlugin({
     inject: true,
-    template: 'app/index.html',
+    template: 'src/index.html',
   }),
 ];
 
@@ -14,7 +14,7 @@ module.exports = require('./webpack.base.babel')({
   mode: 'development',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(process.cwd(), 'app/index.js'),
+    path.join(process.cwd(), 'src/index.jsx'),
   ],
   output: {
     filename: '[name].js',
