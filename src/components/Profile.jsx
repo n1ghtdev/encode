@@ -16,10 +16,14 @@ const Photo = styled.img`
   background-color: #fff;
   width: 80px;
   height: 80px;
-  margin-bottom: 5px;
 `;
 
-const Row = styled.div`
+const Menu = styled.ul`
+  margin-top: 10px;
+`;
+
+const Item = styled.div`
+  font-size: .875rem;
   color: #fff;
   margin-top: 5px;
   background-color: #121114;
@@ -27,9 +31,16 @@ const Row = styled.div`
   border-radius: 5px;
   width: 180px;
   padding: 2px 0;
+
+  ${({ hovered }) => hovered && `
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  `}
 `;
 
-const ProfileContainer = ({ photoSrc, photoAlt, children }) => (
+const ProfileContainer = ({ children }) => (
   <Wrapper>
     {children}
   </Wrapper>
@@ -40,6 +51,7 @@ ProfileContainer.propTypes = {
 };
 
 ProfileContainer.Photo = Photo;
-ProfileContainer.Row = Row;
+ProfileContainer.Menu = Menu;
+ProfileContainer.Item = Item;
 
 export default ProfileContainer;
