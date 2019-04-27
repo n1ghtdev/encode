@@ -6,6 +6,7 @@ const fieldStyles = css`
   border: none;
   width: 100%;
   border-radius: 5px;
+  margin-top: 15px;
 `;
 
 const Form = styled.form`
@@ -13,9 +14,16 @@ const Form = styled.form`
   flex-flow: column nowrap;
   margin: ${({ Margin }) => Margin};
 `;
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 const Label = styled.label`
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  ${({ Width }) => Width && `
+    width: ${Width};
+  `}
 `;
 const Span = styled.span`
   color: ${({ Color }) => Color || '#5b5b5b'};
@@ -24,7 +32,6 @@ const Span = styled.span`
 const Input = styled.input`
   ${fieldStyles}
   height: 40px;
-  margin-top: 10px;
   padding: 0 10px;
   &::placeholder {
     color: #A4A4A4;
@@ -33,18 +40,15 @@ const Input = styled.input`
 const Select = styled.select`
   ${fieldStyles}
   height: 40px;
-  margin-top: 10px;
-  color: #A4A4A4;
   padding-left: 10px;
 `;
 const Option = styled.option`
   min-height: 40px;
   border-radius: 3px;
-  color: #000;
+  color: #A4A4A4;
 `;
 const Textarea = styled.textarea`
   ${fieldStyles}
-  margin-top: 10px;
   padding: 5px 10px;
   &::placeholder {
     color: #A4A4A4;
@@ -77,10 +81,12 @@ Form.Option = Option;
 Form.Textarea = Textarea;
 Form.Button = Button;
 Form.Span = Span;
+Form.Row = Row;
 
 Form.propTypes = {
   children: PropTypes.any,
   Margin: PropTypes.string,
+  Width: PropTypes.string,
 };
 
 export default Form;

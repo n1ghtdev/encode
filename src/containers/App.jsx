@@ -7,12 +7,12 @@ import SidebarContainer from './SidebarContainer';
 import MainContainer from './MainContainer';
 
 const App = () => (
-  <Container fluid>
-    <Row flexWrap="nowrap">
+  <div>
+
       <SidebarContainer />
       <MainContainer />
-    </Row>
-  </Container>
+
+  </div>
 );
 
 export default App;

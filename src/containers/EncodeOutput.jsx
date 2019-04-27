@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import Output from '../components/Output';
 import Span from '../components/Span';
 import Paragraph from '../components/Paragraph';
@@ -8,7 +8,7 @@ const EncodeOutput = () => {
   //const [] = useState();
 
   return (
-    <Output>
+    <Fragment>
       <Paragraph Color="#D4E8FF" FontSize="0.875rem">
         encrypted to <Span Color="#fff" FontWeight="700">$algorithm</Span>
       </Paragraph>
@@ -45,7 +45,7 @@ const EncodeOutput = () => {
           />
         </Form.Label>
       </Form>
-    </Output>
+    </Fragment>
   );
 }
 

@@ -6,6 +6,17 @@ import crypto from 'crypto';
   > buffer.from > (KEY IN HEX, 'hex') > concat to 32
   > Uint8Array or Uint32Array new buffer key hex 32b
 */
+
+/*
+select name,
+	(
+		select string_agg(name, ', ')
+		from modes m
+			where m.id = ANY (c.mode_ids)
+	) as selected_modes
+	from encrypt_algorithms as c;
+*/
+
 export const encrypt = ({
   text, algorithm, encodingFrom, encodingTo,
 }) => {

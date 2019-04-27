@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Aside = styled.aside`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: block;
   width: 100%;
   max-width: 280px;

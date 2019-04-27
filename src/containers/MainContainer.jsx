@@ -6,7 +6,7 @@ const MainContainer = () => {
   //const [] = useState();
 
   return (
-    <Section Padding="54px 15px 25px 15px">
+    <Section Padding="100px 15px 25px 15px">
       <EncodeContainer />
     </Section>
   );

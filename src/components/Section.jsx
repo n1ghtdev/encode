@@ -3,14 +3,15 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   display: block;
-  width: 100%;
-  ${({ Width }) => Width && `max-width: ${Width}`};
   height: ${({ Height }) => Height};
   color: ${({ Color }) => Color};
   ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
   ${({ bgImage }) => bgImage && `background-image: url(${bgImage})`};
   background-repeat: no-repeat;
   padding: ${({ Padding }) => Padding};
+
+  /* fixed sidebar offset */
+  margin-left: 280px;
 `;
 
 Section.propTypes = {
