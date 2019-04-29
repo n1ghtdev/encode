@@ -5,7 +5,8 @@ const Aside = styled.aside`
   position: fixed;
   top: 0;
   left: 0;
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
   width: 100%;
   max-width: 280px;
   min-height: 100vh;

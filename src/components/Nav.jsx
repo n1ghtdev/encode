@@ -1,10 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import A from './A';
 
-const Wrapper = styled.nav`
-
+const Nav = styled.nav`
+  margin: ${({ Margin }) => Margin};
 `;
 
 const List = styled.ul`
@@ -13,29 +12,23 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: block;
-  padding: 10px 40px;
-  color: #ffffff;
+  padding: 15px 40px;
+  color: #fff;
   cursor: pointer;
   transition: all .25s;
-  background-color: #100F11;
-  border-bottom: 1px solid #242424;
   &:hover {
-    background-color: #0F1926;
+    background-color: #0B1A2E;
   }
 `;
 
 const Link = styled(A)`
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 0.875rem;
+  color: #fff;
+  text-transform: capitalize;
 `;
-
-const Nav = ({ children }) => (
-  <Wrapper>{children}</Wrapper>
-);
 
 Nav.propTypes = {
   children: PropTypes.any,
+  Margin: PropTypes.string,
 };
 
 Nav.List = List;

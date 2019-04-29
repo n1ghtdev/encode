@@ -1,57 +1,40 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  padding-top: 40px;
-  padding-bottom: 40px;
-  text-align: center;
+const Profile = styled.div`
+  width: 100%;
+  height: 70px;
+  padding: 0 20px;
+  background-color: #0B1A2E;
   display: flex;
-  flex-flow: column nowrap;
   align-items: center;
 `;
 
-const Photo = styled.img`
+const Photo = styled.img.attrs(({ imgAlt, imgSrc }) => ({
+  alt: imgAlt || 'No picture',
+  src: imgSrc || 'https://i.imgur.com/04YIjte.png',
+}))`
   border-radius: 50%;
-  background-color: #fff;
-  width: 80px;
-  height: 80px;
+  background-color: #101F32;
+  width: 50px;
+  height: 50px;
 `;
 
-const Menu = styled.ul`
-  margin-top: 10px;
-`;
-
-const Item = styled.div`
-  font-size: .875rem;
+const Username = styled.span`
+  padding-left: 20px;
+  font-family: 'Roboto', sans-serif;
   color: #fff;
-  margin-top: 5px;
-  background-color: #121114;
-  border: 1px solid #2d2d2d;
-  border-radius: 5px;
-  width: 180px;
-  padding: 2px 0;
-
-  ${({ hovered }) => hovered && `
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  `}
+  font-weight: 600;
+  font-size: 0.875rem;
 `;
 
-const ProfileContainer = ({ children }) => (
-  <Wrapper>
-    {children}
-  </Wrapper>
-);
-
-ProfileContainer.propTypes = {
+Profile.propTypes = {
   children: PropTypes.any,
+  imgAlt: PropTypes.string,
+  imgSrc: PropTypes.string,
 };
 
-ProfileContainer.Photo = Photo;
-ProfileContainer.Menu = Menu;
-ProfileContainer.Item = Item;
+Profile.Photo = Photo;
+Profile.Username = Username;
 
-export default ProfileContainer;
+export default Profile;

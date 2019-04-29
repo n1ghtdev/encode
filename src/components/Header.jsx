@@ -4,29 +4,22 @@ import styled from 'styled-components';
 
 const Wrapper = styled.header`
   width: 100%;
-  height: 54px;
-  background-color: ${({ bgColor }) => bgColor};
-  border-bottom-color: ${({ borderColor }) => borderColor};
-  border-bottom-width: 4px;
-  border-bottom-style: solid;
-  padding: 8px 15px 0 15px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
 `;
 
-const Header = ({ children, borderColor, bgColor }) => (
-  <Wrapper borderColor={borderColor} bgColor={bgColor}>
+const Header = ({ children, bgColor }) => (
+  <Wrapper bgColor={bgColor}>
     {children}
   </Wrapper>
 );
 
 Header.propTypes = {
   children: PropTypes.any,
-  borderColor: PropTypes.string,
   bgColor: PropTypes.string,
-};
-
-Header.defaultProps = {
-  borderColor: '#eee',
-  bgColor: '#fff',
 };
 
 export default Header;

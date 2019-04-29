@@ -10,12 +10,12 @@ const EncodeContainer = () => {
   //const [] = useState();
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col Padding="0 10px 0 0">
+        <Col lg={6} Padding="0 10px 0 0">
           <EncodeForm />
         </Col>
-        <Col Padding="35px 0 0 10px">
+        <Col lg={6} Padding="35px 0 0 10px">
           <Output>
             <EncodeOutput />
           </Output>
