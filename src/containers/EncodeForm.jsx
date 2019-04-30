@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Form from '../components/Form';
+import useFormControls from '../hooks/useFormControls';
 
 // replace with Context API fetch
 const pldata = {
@@ -52,57 +53,55 @@ const pldata = {
 };
 
 const EncodeForm = () => {
-  const [text, setText] = useState('');
-  const [encrAlgo, setEncrAlgo] = useState('');
-  const [encoFrom, setEncoFrom] = useState('');
-  const [encoTo, setEncoTo] = useState('');
-  const [key, setKey] = useState('');
+  const encrypt = () => {
+    console.log(controls);
+  };
+  const { controls, handleSubmit, handleControlChange } = useFormControls(encrypt);
+
   return (
-    <Form action="#">
+    <Form onSubmit={handleSubmit}>
       <Form.Label>
         <Form.Span>Put text to encrypt</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="text"
-          value={text}
-          onChange={e => setText(e.target.value)}
+          value={controls.text}
+          onChange={handleControlChange}
           placeholder="text information"
           required
         />
       </Form.Label>
-      <Form.Row>
-        <Form.Label Width="25%">
-          <Form.Span>Encryption algorithm</Form.Span>
-          <Form.Select
-            name="text"
-            value={encrAlgo}
-            onChange={e => setEncrAlgo(e.target.value)}
-            required
-          >
-            { pldata.encAlgos.map(el => (
-              <Form.Option key={el.id}>{el.name}</Form.Option>
-            )) }
-          </Form.Select>
-        </Form.Label>
-        <Form.Label Width="73%">
-          <Form.Span>Key</Form.Span>
-          <Form.Input
-            type="input"
-            name="encode-output-key"
-            value={key}
-            onChange={e => setKey(e.target.value)}
-            placeholder="Leave it blank to auto-generate unique key"
-          />
-        </Form.Label>
-      </Form.Row>
+      <Form.Label>
+        <Form.Span>Encryption algorithm</Form.Span>
+        <Form.Select
+          name="text"
+          value={controls.encrAlgo}
+          onChange={handleControlChange}
+          required
+        >
+          { pldata.encAlgos.map(el => (
+            <Form.Option key={el.id}>{el.name}</Form.Option>
+          )) }
+        </Form.Select>
+      </Form.Label>
+      <Form.Label>
+        <Form.Span>Key</Form.Span>
+        <Form.Input
+          type="input"
+          name="encode-output-key"
+          value={controls.key}
+          onChange={handleControlChange}
+          placeholder="Leave it blank to auto-generate unique key"
+        />
+      </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
           <Form.Span>Encode from</Form.Span>
           <Form.Select
             name="text"
-            value={encoFrom}
-            onChange={e => setEncoFrom(e.target.value)}
+            value={controls.encoFrom}
+            onChange={handleControlChange}
             required
           >
             { pldata.encFrom.map(el => (
@@ -114,8 +113,8 @@ const EncodeForm = () => {
           <Form.Span>Encode to</Form.Span>
           <Form.Select
             name="text"
-            value={encoTo}
-            onChange={e => setEncoTo(e.target.value)}
+            value={controls.encoTo}
+            onChange={handleControlChange}
             required
           >
             { pldata.encTo.map(el => (
@@ -124,7 +123,9 @@ const EncodeForm = () => {
           </Form.Select>
         </Form.Label>
       </Form.Row>
-      <Form.Button>encrypt</Form.Button>
+      <Form.Row Margin="20px auto">
+        <Form.Button type="submit" primary>encrypt</Form.Button>
+      </Form.Row>
     </Form>
   );
 }

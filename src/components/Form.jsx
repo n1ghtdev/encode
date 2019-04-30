@@ -1,12 +1,26 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import Button from './Button';
 
 const fieldStyles = css`
-  box-shadow: 0 0 2px rgba(0, 0, 0, .25);
-  border: none;
+  border: 1px solid #CDD9ED;
   width: 100%;
-  border-radius: 5px;
-  margin-top: 15px;
+  border-radius: 8px;
+  color: #6C7486;
+  font-family: 'Roboto', sans-serif;
+  transition: all .25s;
+  &::placeholder {
+    font-size: .875rem;
+  }
+  &:focus {
+    border-color: #23C4F8;
+    outline: none;
+  }
+  &:disabled {
+    background-color: #F9FBFE;
+    border-color: #E4ECFA;
+    color: #B4BED0;
+  }
 `;
 
 const Form = styled.form`
@@ -17,24 +31,25 @@ const Form = styled.form`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: ${({ Margin }) => Margin};
 `;
 const Label = styled.label`
   display: block;
-  margin-bottom: 10px;
   ${({ Width }) => Width && `
     width: ${Width};
   `}
 `;
 const Span = styled.span`
-  color: ${({ Color }) => Color || '#5b5b5b'};
-  margin-left: 10px;
+  display: block;
+  color: #5B5B5B;
+  margin: 10px 0 10px 20px;
 `;
 const Input = styled.input`
   ${fieldStyles}
   height: 40px;
-  padding: 0 10px;
+  padding: 15px;
   &::placeholder {
-    color: #A4A4A4;
+    color: #CBD1DC;
   }
 `;
 const Select = styled.select`
@@ -49,29 +64,13 @@ const Option = styled.option`
 `;
 const Textarea = styled.textarea`
   ${fieldStyles}
-  padding: 5px 10px;
+  padding: 15px;
   &::placeholder {
-    color: #A4A4A4;
+    color: #CBD1DC;
   }
 `;
-const Button = styled.button`
-  align-self: center;
-  margin-top: 15px;
-  width: 140px;
-  height: 50px;
-  border: none;
-  border-radius: 5px;
-  
-  background-color: #3074C5;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity .25s;
-  &:hover {
-    opacity: .75;
-  }
+const ButtonWrapper = styled(Button)`
+
 `;
 
 Form.Label = Label;
@@ -79,7 +78,7 @@ Form.Input = Input;
 Form.Select = Select;
 Form.Option = Option;
 Form.Textarea = Textarea;
-Form.Button = Button;
+Form.Button = ButtonWrapper;
 Form.Span = Span;
 Form.Row = Row;
 

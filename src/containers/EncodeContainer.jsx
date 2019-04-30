@@ -4,7 +4,6 @@ import EncodeOutput from './EncodeOutput';
 import Container from '../components/Container';
 import Col from '../components/Col';
 import Row from '../components/Row';
-import Output from '../components/Output';
 
 const EncodeContainer = () => {
   //const [] = useState();
@@ -12,13 +11,11 @@ const EncodeContainer = () => {
   return (
     <Container fluid>
       <Row>
-        <Col lg={6} Padding="0 10px 0 0">
+        <Col lg={6} Padding="0 20px 0 0">
           <EncodeForm />
         </Col>
-        <Col lg={6} Padding="35px 0 0 10px">
-          <Output>
-            <EncodeOutput />
-          </Output>
+        <Col lg={6} Padding="0 0 0 20px">
+          <EncodeOutput />
         </Col>
       </Row>
     </Container>

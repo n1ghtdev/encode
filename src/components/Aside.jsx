@@ -8,7 +8,7 @@ const Aside = styled.aside`
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  max-width: 280px;
+  max-width: 240px;
   min-height: 100vh;
   ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
 `;

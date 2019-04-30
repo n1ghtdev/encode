@@ -6,12 +6,12 @@ const Section = styled.section`
   height: ${({ Height }) => Height};
   color: ${({ Color }) => Color};
   ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
-  ${({ bgImage }) => bgImage && `background-image: url(${bgImage})`};
+  border-radius: 5px;
+  margin: 20px 20px 20px 260px;
   background-repeat: no-repeat;
   padding: ${({ Padding }) => Padding};
 
   /* fixed sidebar offset */
-  margin-left: 280px;
 `;
 
 Section.propTypes = {
