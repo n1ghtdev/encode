@@ -91,6 +91,10 @@
     "react/self-closing-comp": 0
   },
   "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    },
     "import/resolver": {
       "webpack": {
         "config": "./internals/webpack/webpack.prod.babel.js"

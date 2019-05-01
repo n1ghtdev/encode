@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import A from './A';
 
 const Nav = styled.nav`
@@ -12,7 +13,6 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: block;
-  padding: 15px 40px;
   color: #fff;
   cursor: pointer;
   transition: all .25s;
@@ -21,9 +21,12 @@ const Item = styled.li`
   }
 `;
 
-const Link = styled(A)`
+const LinkWrapper = styled(Link)`
+  display: block;
+  padding: 15px 40px;
   color: #fff;
   text-transform: capitalize;
+  text-decoration: none;
 `;
 
 Nav.propTypes = {
@@ -33,6 +36,6 @@ Nav.propTypes = {
 
 Nav.List = List;
 Nav.Item = Item;
-Nav.Link = Link;
+Nav.Link = LinkWrapper;
 
 export default Nav;

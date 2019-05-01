@@ -1,4 +1,5 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
+import OutputForm from '../components/OutputForm';
 import Form from '../components/Form';
 
 const dlFormats = [
@@ -16,35 +17,21 @@ const EncodeOutput = () => {
   const [dlFormat, setDlFormat] = useState('');
 
   return (
-    <Form action="#">
-      <Form.Label>
-        <Form.Span>Encrypted text</Form.Span>
-        <Form.Textarea
-          rows="15"
-          type="input"
-          name="outpit-text"
-          placeholder="text information"
-          required
-        />
-      </Form.Label>
-      <Form.Label>
-        <Form.Span>Initialization Vector (IV)</Form.Span>
-        <Form.Input
-          type="input"
-          name="encode-output-iv"
-          placeholder="Initialization Vector"
-        />
-      </Form.Label>
-      <Form.Label>
-        <Form.Span>Key</Form.Span>
-        <Form.Input
-          type="input"
-          name="encode-output-key"
-          placeholder="Leave it blank to auto-generate unique key"
-        />
-      </Form.Label>
-      <Form.Row Margin="38px 0 0 0">
-        <Form.Label Width="75%">
+    <OutputForm>
+      <OutputForm.Item>
+        <OutputForm.ItemTitle>Encrypted text</OutputForm.ItemTitle>
+        <OutputForm.Textarea>$output-value</OutputForm.Textarea>
+      </OutputForm.Item>
+      <OutputForm.Item>
+        <OutputForm.ItemTitle>Initialization Vector (IV)</OutputForm.ItemTitle>
+        <OutputForm.Input>$output-iv</OutputForm.Input>
+      </OutputForm.Item>
+      <OutputForm.Item>
+        <OutputForm.ItemTitle>Key</OutputForm.ItemTitle>
+        <OutputForm.Input>$output-key</OutputForm.Input>
+      </OutputForm.Item>
+      <OutputForm.Row Margin="38px 0 0 0">
+        <OutputForm.Item Width="75%">
           <Form.Select
             name="select-dl-formats"
             value={dlFormat}
@@ -55,10 +42,10 @@ const EncodeOutput = () => {
               <Form.Option key={el.id}>{el.name}</Form.Option>
             )) }
           </Form.Select>
-        </Form.Label>
-        <Form.Button primary>download</Form.Button>
-      </Form.Row>
-    </Form>
+        </OutputForm.Item>
+        <OutputForm.Button type="button" primary>download</OutputForm.Button>
+      </OutputForm.Row>
+    </OutputForm>
   );
 }
 

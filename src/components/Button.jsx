@@ -6,8 +6,8 @@ const ButtonPrimary = css`
   height: 40px;
   border: none;
   border-radius: 8px;
-  font-weight: 700;
-  font-size: 1rem;
+  font-size: .875rem;
+  text-transform: capitalize;
   background: linear-gradient(250deg, #3A8DF4 0%, #2350A8 100%);
   color: #fff;
   cursor: pointer;

@@ -1,18 +1,19 @@
 import React from 'react';
-import Container from '../components/Container';
-import Row from '../components/Row';
-import Col from '../components/Col';
-import HeaderContainer from './HeaderContainer';
+import { Switch, Route } from 'react-router-dom';
+import EncodeContainer from './EncodeContainer';
 import SidebarContainer from './SidebarContainer';
-import MainContainer from './MainContainer';
+import Section from '../components/Section';
 
+/* eslint-disable */
 const App = () => (
-  <div>
-
-      <SidebarContainer />
-      <MainContainer />
-
-  </div>
+  <>
+    <SidebarContainer />
+    <Section Padding="25px 15px" bgColor="#F1F7FF">
+      <Switch>
+        <Route path="/" component={EncodeContainer} />
+      </Switch>
+    </Section>
+  </>
 );
 
 export default App;

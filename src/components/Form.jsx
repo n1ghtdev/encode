@@ -9,9 +9,8 @@ const fieldStyles = css`
   color: #6C7486;
   font-family: 'Roboto', sans-serif;
   transition: all .25s;
-  &::placeholder {
-    font-size: .875rem;
-  }
+  font-size: .875rem;
+
   &:focus {
     border-color: #23C4F8;
     outline: none;
@@ -56,6 +55,7 @@ const Select = styled.select`
   ${fieldStyles}
   height: 40px;
   padding-left: 10px;
+
 `;
 const Option = styled.option`
   min-height: 40px;
@@ -65,6 +65,7 @@ const Option = styled.option`
 const Textarea = styled.textarea`
   ${fieldStyles}
   padding: 15px;
+  min-height: 287px;
   &::placeholder {
     color: #CBD1DC;
   }

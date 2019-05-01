@@ -5,22 +5,22 @@ const NavContainer = () => (
   <Nav Margin="50px 0 0 0">
     <Nav.List>
       <Nav.Item>
-        <Nav.Link href="#">
+        <Nav.Link to="/encrypt">
           encryption
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="#">
+        <Nav.Link to="/decrypt">
           decryption
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="#">
+        <Nav.Link to="/about">
           about
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="#">
+        <Nav.Link to="/how-to-use">
           how to use
         </Nav.Link>
       </Nav.Item>
