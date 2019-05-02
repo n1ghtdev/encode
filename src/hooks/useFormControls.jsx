@@ -1,7 +1,13 @@
 import { useState } from 'react';
 
 const useFormControls = (callback) => {
-  const [controls, setControls] = useState({});
+  const [controls, setControls] = useState({
+    text: '',
+    algorithm: '',
+    key: '',
+    encodingFrom: '',
+    encodingTo: '',
+  });
 
   const handleSubmit = (e) => {
     if (e) {

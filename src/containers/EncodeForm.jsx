@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Form from '../components/Form';
 import useFormControls from '../hooks/useFormControls';
+import { makeRequest } from '../utils/makeRequest';
+import EncryptContext from '../store/EncryptContext';
 
 // replace with Context API fetch
 const pldata = {
@@ -53,10 +55,17 @@ const pldata = {
 };
 
 const EncodeForm = () => {
-  const encrypt = () => {
+  const context = useContext(EncryptContext);
+
+  const encrypt = async () => {
     console.log(controls);
+    const response = await makeRequest('/api/encrypt', 'post', controls);
+    console.log(context);
+    context.getEncryptedData(response);
   };
+
   const { controls, handleSubmit, handleControlChange } = useFormControls(encrypt);
+  console.log(context);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -75,8 +84,8 @@ const EncodeForm = () => {
       <Form.Label>
         <Form.Span>Encryption algorithm</Form.Span>
         <Form.Select
-          name="text"
-          value={controls.encrAlgo}
+          name="algorithm"
+          value={controls.algorithm}
           onChange={handleControlChange}
           required
         >
@@ -89,7 +98,7 @@ const EncodeForm = () => {
         <Form.Span>Key</Form.Span>
         <Form.Input
           type="input"
-          name="encode-output-key"
+          name="key"
           value={controls.key}
           onChange={handleControlChange}
           placeholder="Leave it blank to auto-generate unique key"
@@ -99,8 +108,8 @@ const EncodeForm = () => {
         <Form.Label Width="49%">
           <Form.Span>Encode from</Form.Span>
           <Form.Select
-            name="text"
-            value={controls.encoFrom}
+            name="encodingFrom"
+            value={controls.encodingFrom}
             onChange={handleControlChange}
             required
           >
@@ -112,8 +121,8 @@ const EncodeForm = () => {
         <Form.Label Width="49%">
           <Form.Span>Encode to</Form.Span>
           <Form.Select
-            name="text"
-            value={controls.encoTo}
+            name="encodingTo"
+            value={controls.encodingTo}
             onChange={handleControlChange}
             required
           >
