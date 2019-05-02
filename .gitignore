@@ -15,7 +15,6 @@
 ### Client ###
 node_modules
 build
-src/assets
 
 # Swap
 [._]*.s[a-v][a-z]
