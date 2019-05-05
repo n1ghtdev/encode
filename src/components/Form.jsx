@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import Button from './Button';
 
 const fieldStyles = css`
-  border: 1px solid #CDD9ED;
+  border: 2px solid #CDD9ED;
   width: 100%;
   border-radius: 8px;
   color: #6C7486;

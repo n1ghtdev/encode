@@ -1,72 +1,40 @@
 import React, { useContext } from 'react';
+import Select from 'react-select';
 import Form from '../components/Form';
 import useFormControls from '../hooks/useFormControls';
-import { makeRequest } from '../utils/makeRequest';
-import EncryptContext from '../store/EncryptContext';
+import { postRequest } from '../utils/makeRequest';
+import StoreContext from '../store/StoreContext';
+const EncodeForm = ({ outputData, infoData }) => {
+  // const { outputData, infoData } = useContext(StoreContext);
 
-// replace with Context API fetch
-const pldata = {
-  encAlgos: [
-    {
-      id: 0,
-      name: 'AES-256-CBC',
-    },
-    {
-      id: 1,
-      name: 'AES-256-NAM',
-    },
-    {
-      id: 2,
-      name: 'AES-256-POG',
-    },
-    {
-      id: 3,
-      name: 'AES-256-LSD',
-    },
-  ],
-  encFrom: [
-    {
-      id: 0,
-      name: 'UTF-8',
-    },
-    {
-      id: 1,
-      name: 'Base64',
-    },
-    {
-      id: 2,
-      name: 'HEX',
-    },
-  ],
-  encTo: [
-    {
-      id: 0,
-      name: 'UTF-8',
-    },
-    {
-      id: 1,
-      name: 'Base64',
-    },
-    {
-      id: 2,
-      name: 'HEX',
-    },
-  ],
-};
-
-const EncodeForm = () => {
-  const context = useContext(EncryptContext);
-
+  // callback onSubmit
   const encrypt = async () => {
-    console.log(controls);
-    const response = await makeRequest('/api/encrypt', 'post', controls);
-    console.log(context);
-    context.getEncryptedData(response);
+    outputData.requestOutputData();
+    // TODO: set delay (setTimeout) to simulate loading
+    await postRequest('/api/encrypt', {
+      text: controls.text,
+      algorithm: {
+        ...infoData.data.algorithmList.find(a => a.id === Number(controls.algorithm)),
+        modes: controls.algorithmMode === 'no mode' ? null : controls.algorithmMode,
+      },
+      key: controls.key,
+      encodingFrom: controls.encodingFrom,
+      encodingTo: controls.encodingTo,
+    })
+      .then(data => outputData.updateOutputData(data));
   };
-
-  const { controls, handleSubmit, handleControlChange } = useFormControls(encrypt);
-  console.log(context);
-
+  const initialState = {
+    text: '',
+    algorithm: infoData.data.algorithmList[0].id,
+    algorithmMode: '',
+    key: '',
+    encodingFrom: infoData.data.encodingList[0].name,
+    encodingTo: infoData.data.encodingList[1].name,
+  };
+  const { controls, handleSubmit, handleControlChange } = useFormControls(encrypt, initialState);
+  console.log(controls);
+  console.log(infoData.data.algorithmList);
+  window.algos = infoData.data.algorithmList;
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Label>
@@ -81,19 +49,37 @@ const EncodeForm = () => {
           required
         />
       </Form.Label>
-      <Form.Label>
-        <Form.Span>Encryption algorithm</Form.Span>
-        <Form.Select
-          name="algorithm"
-          value={controls.algorithm}
-          onChange={handleControlChange}
-          required
-        >
-          { pldata.encAlgos.map(el => (
-            <Form.Option key={el.id}>{el.name}</Form.Option>
-          )) }
-        </Form.Select>
-      </Form.Label>
+      <Form.Row>
+        <Form.Label Width="49%">
+          <Form.Span>Encryption algorithm</Form.Span>
+          <Form.Select
+            name="algorithm"
+            value={controls.algorithm.name}
+            onChange={handleControlChange}
+            required
+          >
+            { infoData.data.algorithmList.map(el => (
+              <Form.Option key={el.id} value={el.id}>{el.title}</Form.Option>
+            )) }
+          </Form.Select>
+        </Form.Label>
+        <Form.Label Width="49%">
+          <Form.Span>Algorithm encryption mode</Form.Span>
+          <Form.Select
+            name="algorithmMode"
+            value={controls.algorithmMode}
+            onChange={handleControlChange}
+            required
+          >
+            <Form.Option key={-1} value="" disabled>Select mode</Form.Option>
+            {
+              infoData.data.algorithmList.find(a => a.id === Number(controls.algorithm)).modes.map(mode => (
+                <Form.Option key={mode.id} value={mode.name}>{mode.name}</Form.Option>
+              ))
+            }
+          </Form.Select>
+        </Form.Label>
+      </Form.Row>
       <Form.Label>
         <Form.Span>Key</Form.Span>
         <Form.Input
@@ -113,8 +99,8 @@ const EncodeForm = () => {
             onChange={handleControlChange}
             required
           >
-            { pldata.encFrom.map(el => (
-              <Form.Option key={el.id}>{el.name}</Form.Option>
+            { infoData.data.encodingList.map(el => (
+              <Form.Option key={el.id} value={el.name}>{el.title}</Form.Option>
             )) }
           </Form.Select>
         </Form.Label>
@@ -126,8 +112,8 @@ const EncodeForm = () => {
             onChange={handleControlChange}
             required
           >
-            { pldata.encTo.map(el => (
-              <Form.Option key={el.id}>{el.name}</Form.Option>
+            { infoData.data.encodingList.map(el => (
+              <Form.Option key={el.id} value={el.name}>{el.title}</Form.Option>
             )) }
           </Form.Select>
         </Form.Label>
@@ -137,6 +123,6 @@ const EncodeForm = () => {
       </Form.Row>
     </Form>
   );
-}
+};
 
 export default EncodeForm;

@@ -1,5 +1,4 @@
 # Encode Web App
----
 Encrypt and decrypt text data with symmetric algorithms (AES, Blowfish...) and encodings (base64, hex...).
 
 ##### Tools:

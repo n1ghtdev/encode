@@ -1,13 +1,7 @@
 import { useState } from 'react';
 
-const useFormControls = (callback) => {
-  const [controls, setControls] = useState({
-    text: '',
-    algorithm: '',
-    key: '',
-    encodingFrom: '',
-    encodingTo: '',
-  });
+const useFormControls = (callback, initialState) => {
+  const [controls, setControls] = useState({ ...initialState });
 
   const handleSubmit = (e) => {
     if (e) {
@@ -20,6 +14,7 @@ const useFormControls = (callback) => {
     e.persist();
     setControls(ctrl => ({ ...ctrl, [e.target.name]: e.target.value }));
   };
+
   return {
     handleSubmit,
     handleControlChange,

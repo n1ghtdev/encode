@@ -3,18 +3,18 @@ import { Switch, Route } from 'react-router-dom';
 import EncodeContainer from './EncodeContainer';
 import SidebarContainer from './SidebarContainer';
 import Section from '../components/Section';
-import GlobalState from '../store/GlobalState';
+import GlobalStore from '../store/GlobalStore';
 
 /* eslint-disable */
 const App = () => (
-  <GlobalState>
+  <GlobalStore>
     <SidebarContainer />
     <Section Padding="25px 15px" bgColor="#F1F7FF">
       <Switch>
         <Route path="/" component={EncodeContainer} />
       </Switch>
     </Section>
-  </GlobalState>
+  </GlobalStore>
 );
 
 export default App;

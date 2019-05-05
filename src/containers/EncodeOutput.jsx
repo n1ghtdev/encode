@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import OutputForm from '../components/OutputForm';
 import Form from '../components/Form';
+import StoreContext from '../store/StoreContext';
+import useFormControls from '../hooks/useFormControls';
 
 const dlFormats = [
   {
@@ -14,24 +16,42 @@ const dlFormats = [
 ];
 
 const EncodeOutput = () => {
+  const { outputData } = useContext(StoreContext);
   const [dlFormat, setDlFormat] = useState('');
 
   return (
-    <OutputForm>
-      <OutputForm.Item>
-        <OutputForm.ItemTitle>Encrypted text</OutputForm.ItemTitle>
-        <OutputForm.Textarea>$output-value</OutputForm.Textarea>
-      </OutputForm.Item>
-      <OutputForm.Item>
-        <OutputForm.ItemTitle>Initialization Vector (IV)</OutputForm.ItemTitle>
-        <OutputForm.Input>$output-iv</OutputForm.Input>
-      </OutputForm.Item>
-      <OutputForm.Item>
-        <OutputForm.ItemTitle>Key</OutputForm.ItemTitle>
-        <OutputForm.Input>$output-key</OutputForm.Input>
-      </OutputForm.Item>
-      <OutputForm.Row Margin="38px 0 0 0">
-        <OutputForm.Item Width="75%">
+    <Form>
+      { outputData.loading && (<div style={{ position: 'absolute' }}>LOADING</div>) }
+      <Form.Label>
+        <Form.Span>Encrypted text</Form.Span>
+        <Form.Textarea
+          rows="15"
+          type="input"
+          name="output-text"
+          value={outputData.data.text || 'encrypted text'}
+          readOnly
+        />
+      </Form.Label>
+      <Form.Label>
+        <Form.Span>Initialization Vector (IV)</Form.Span>
+        <Form.Input
+          type="input"
+          name="output-iv"
+          value={outputData.data.ivHex || 'initialization vector'}
+          readOnly
+        />
+      </Form.Label>
+      <Form.Label>
+        <Form.Span>Key</Form.Span>
+        <Form.Input
+          type="input"
+          name="output-key"
+          value={outputData.data.keyHex || 'key'}
+          readOnly
+        />
+      </Form.Label>
+      <Form.Row Margin="38px 0 0 0">
+        <Form.Label Width="75%">
           <Form.Select
             name="select-dl-formats"
             value={dlFormat}
@@ -39,14 +59,14 @@ const EncodeOutput = () => {
             required
           >
             { dlFormats.map(el => (
-              <Form.Option key={el.id}>{el.name}</Form.Option>
+              <Form.Option key={el.id} value={el.name}>{el.name}</Form.Option>
             )) }
           </Form.Select>
-        </OutputForm.Item>
-        <OutputForm.Button type="button" primary>download</OutputForm.Button>
-      </OutputForm.Row>
-    </OutputForm>
+        </Form.Label>
+        <Form.Button type="button" primary>download</Form.Button>
+      </Form.Row>
+    </Form>
   );
-}
+};
 
 export default EncodeOutput;
