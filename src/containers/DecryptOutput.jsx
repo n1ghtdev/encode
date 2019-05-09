@@ -21,30 +21,12 @@ const EncodeOutput = () => {
     <Form>
       { outputData.loading && (<div style={{ position: 'absolute' }}>LOADING</div>) }
       <Form.Label>
-        <Form.Span>Encrypted text</Form.Span>
+        <Form.Span>Decrypted text</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="output-text"
           value={outputData.data.text || 'encrypted text'}
-          readOnly
-        />
-      </Form.Label>
-      <Form.Label>
-        <Form.Span>Initialization Vector (IV)</Form.Span>
-        <Form.Input
-          type="input"
-          name="output-iv"
-          value={outputData.data.iv || 'initialization vector'}
-          readOnly
-        />
-      </Form.Label>
-      <Form.Label>
-        <Form.Span>Key</Form.Span>
-        <Form.Input
-          type="input"
-          name="output-key"
-          value={outputData.data.key || 'key'}
           readOnly
         />
       </Form.Label>

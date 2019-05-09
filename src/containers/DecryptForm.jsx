@@ -1,36 +1,34 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Form from '../components/Form';
 import useFormControls from '../hooks/useFormControls';
 import { postRequest } from '../utils/makeRequest';
-import StoreContext from '../store/StoreContext';
-const EncodeForm = ({ outputData, infoData }) => {
-  // const { outputData, infoData } = useContext(StoreContext);
 
+const DecryptForm = ({ outputData, infoData }) => {
   // callback onSubmit
-  const encrypt = async () => {
+  const decrypt = async () => {
     outputData.requestOutputData();
     // TODO: set delay (setTimeout) to simulate loading
-    await postRequest('/api/encrypt', {
-      text: controls.text,
+    await postRequest('/api/decrypt', {
+      text: controls.encText,
       algorithm: {
-        ...infoData.data.algorithmList.find(a => a.id === Number(controls.algorithm)),
-        modes: controls.algorithmMode === 'no mode' ? null : controls.algorithmMode,
+        ...infoData.data.algorithmList.find(a => a.id === Number(controls.encAlgorithm)),
+        modes: controls.encAlgorithmMode === 'no mode' ? null : controls.encAlgorithmMode,
       },
-      key: controls.key,
-      encodingFrom: controls.encodingFrom,
-      encodingTo: controls.encodingTo,
+      key: controls.encKey,
+      decodingFrom: controls.decodingFrom,
+      decodingTo: controls.decodingTo,
     })
       .then(data => outputData.updateOutputData(data));
   };
   const initialState = {
-    text: '',
-    algorithm: infoData.data.algorithmList[0].id,
-    algorithmMode: '',
-    key: '',
-    encodingFrom: infoData.data.encodingList[0].name,
-    encodingTo: infoData.data.encodingList[1].name,
+    encText: '',
+    encAlgorithm: infoData.data.algorithmList[0].id,
+    encAlgorithmMode: '',
+    encKey: '',
+    decodingFrom: infoData.data.encodingList[1].name,
+    decodingTo: infoData.data.encodingList[0].name,
   };
-  const { controls, handleSubmit, handleControlChange } = useFormControls(encrypt, initialState);
+  const { controls, handleSubmit, handleControlChange } = useFormControls(decrypt, initialState);
   console.log(controls);
   console.log(infoData.data.algorithmList);
   window.algos = infoData.data.algorithmList;
@@ -41,8 +39,8 @@ const EncodeForm = ({ outputData, infoData }) => {
         <Form.Textarea
           rows="15"
           type="input"
-          name="text"
-          value={controls.text}
+          name="encText"
+          value={controls.encText}
           onChange={handleControlChange}
           placeholder="text information"
           required
@@ -52,8 +50,8 @@ const EncodeForm = ({ outputData, infoData }) => {
         <Form.Label Width="49%">
           <Form.Span>Encryption algorithm</Form.Span>
           <Form.Select
-            name="algorithm"
-            value={controls.algorithm.name}
+            name="encAlgorithm"
+            value={controls.encAlgorithm.name}
             onChange={handleControlChange}
             required
           >
@@ -65,14 +63,14 @@ const EncodeForm = ({ outputData, infoData }) => {
         <Form.Label Width="49%">
           <Form.Span>Algorithm encryption mode</Form.Span>
           <Form.Select
-            name="algorithmMode"
-            value={controls.algorithmMode}
+            name="encAlgorithmMode"
+            value={controls.encAlgorithmMode}
             onChange={handleControlChange}
             required
           >
             <Form.Option key={-1} value="" disabled>Select mode</Form.Option>
             {
-              infoData.data.algorithmList.find(a => a.id === Number(controls.algorithm)).modes.map(mode => (
+              infoData.data.algorithmList.find(a => a.id === Number(controls.encAlgorithm)).modes.map(mode => (
                 <Form.Option key={mode.id} value={mode.name}>{mode.name}</Form.Option>
               ))
             }
@@ -83,8 +81,8 @@ const EncodeForm = ({ outputData, infoData }) => {
         <Form.Span>Key</Form.Span>
         <Form.Input
           type="input"
-          name="key"
-          value={controls.key}
+          name="encKey"
+          value={controls.encKey}
           onChange={handleControlChange}
           placeholder="Leave it blank to auto-generate unique key"
         />
@@ -93,8 +91,8 @@ const EncodeForm = ({ outputData, infoData }) => {
         <Form.Label Width="49%">
           <Form.Span>Encode from</Form.Span>
           <Form.Select
-            name="encodingFrom"
-            value={controls.encodingFrom}
+            name="decodingFrom"
+            value={controls.decodingFrom}
             onChange={handleControlChange}
             required
           >
@@ -106,8 +104,8 @@ const EncodeForm = ({ outputData, infoData }) => {
         <Form.Label Width="49%">
           <Form.Span>Encode to</Form.Span>
           <Form.Select
-            name="encodingTo"
-            value={controls.encodingTo}
+            name="decodingTo"
+            value={controls.decodingTo}
             onChange={handleControlChange}
             required
           >
@@ -124,4 +122,4 @@ const EncodeForm = ({ outputData, infoData }) => {
   );
 };
 
-export default EncodeForm;
+export default DecryptForm;

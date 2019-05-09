@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import EncodeContainer from './EncodeContainer';
+import EncryptPage from '../pages/EncryptPage';
+import DecryptPage from '../pages/DecryptPage';
 import SidebarContainer from './SidebarContainer';
 import Section from '../components/Section';
 import GlobalStore from '../store/GlobalStore';
@@ -11,7 +12,8 @@ const App = () => (
     <SidebarContainer />
     <Section Padding="25px 15px" bgColor="#F1F7FF">
       <Switch>
-        <Route path="/" component={EncodeContainer} />
+        <Route exact path="/encrypt" component={EncryptPage} />
+        <Route exact path="/decrypt" component={DecryptPage} />
       </Switch>
     </Section>
   </GlobalStore>

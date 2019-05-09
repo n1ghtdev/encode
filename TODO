@@ -1,0 +1,9 @@
+Thursday, May 2, 2019:
+  ☐ backend
+    ☐ refactor actions
+    ☐ try to implement algorithms and encodings from scratch
+    ☐ connect pgsql db
+  ☐ download output feature
+  ☐ decrypt containers/page
+  ☐ create custom hooks for algorithms and encodings
+    ✔ store algos and encodings in globalState @done(19-05-02 22:06)

@@ -1,55 +1,91 @@
 import crypto from 'crypto';
-// text, algorithm, encodingFrom, encodingTo, key
 
-/*
-  user got Key in HEX which is 64b
-  > buffer.from > (KEY IN HEX, 'hex') > concat to 32
-  > Uint8Array or Uint32Array new buffer key hex 32b
-*/
+const getKeyFromPassword = (password, salt, keyLength) => crypto.scryptSync(password, salt, keyLength);
 
-/*
-select name,
-	(
-		select string_agg(name, ', ')
-		from modes m
-			where m.id = ANY (c.mode_ids)
-	) as selected_modes
-	from encrypt_algorithms as c;
-*/
+const getSalt = (saltLength) => crypto.randomBytes(saltLength);
+
+const getIV = (ivLength) => crypto.randomBytes(ivLength);
+
+const getRandomKey = (keyLength) => crypto.randomBytes(keyLength);
 
 export const encrypt = ({
-  text, algorithm, encodingFrom, encodingTo,
+  text, algorithm, password, encodingFrom, encodingTo,
 }) => {
-  const password = crypto.randomBytes(32);
+  const ALGORITHM = {
+    BLOCK_CIPHER: algorithm.modes ? `${algorithm.name}-${algorithm.modes}` : algorithm.name,
+    KEY_BYTE_LEN: algorithm.keysize / 8,
+    IV_BYTE_LEN: algorithm.blocksize / 8,
+    SALT_BYTE_LEN: 16,
+  };
 
-  let key = Buffer.alloc(32); // 256/8
-  let iv = Buffer.alloc(16);
+  let key;
+  const iv = getIV(ALGORITHM.IV_BYTE_LEN);
 
-  key = Buffer.concat([Buffer.from(password)], key.length);
-  iv = Buffer.from(Array.prototype.map.call(iv, () => Math.floor(Math.random() * 256)));
-  const cipher = crypto.createCipheriv(algorithm, key, iv);
-  let crypted = cipher.update(text, encodingFrom, encodingTo);
-  crypted += cipher.final(encodingTo);
+  if (password) {
+    key = getKeyFromPassword(password, getSalt(ALGORITHM.SALT_BYTE_LEN), ALGORITHM.KEY_BYTE_LEN);
+  } else {
+    key = getRandomKey(ALGORITHM.KEY_BYTE_LEN);
+  }
+
+  const cipher = crypto.createCipheriv(ALGORITHM.BLOCK_CIPHER, key, iv);
+  let crypted = cipher.update(text, encodingFrom);
+  crypted = Buffer.concat([iv, crypted, cipher.final()]);
 
   return {
-    crypted,
-    key,
-    keyHex: key.toString('hex'),
-    iv,
-    ivHex: iv.toString('hex'),
+    text: crypted.toString(encodingTo),
+    key: key.toString(encodingTo),
+    iv: iv.toString(encodingTo),
   };
 };
-// console.log(encrypt({text: 'every', algorithm: 'aes-256-cbc', encodingFrom: 'utf8', encodingTo: 'hex'}));
+
 export const decrypt = ({
-  text, algorithm, decodingFrom, decodingTo, key, iv,
+  text, algorithm, decodingFrom, decodingTo, key,
 }) => {
-  const nkey = Buffer.from(key, 'hex');
-  console.log(nkey);
-  const niv = Buffer.from(iv, 'hex');
-  const decipher = crypto.createDecipheriv(algorithm, nkey, niv);
-  let decrypted = decipher.update(text, decodingFrom, decodingTo);
-  decrypted += decipher.final(decodingTo);
+  const ALGORITHM = {
+    BLOCK_CIPHER: algorithm.modes ? `${algorithm.name}-${algorithm.modes}` : algorithm.name,
+    IV_BYTE_LEN: algorithm.blocksize / 8,
+  };
+
+  const bufferedText = Buffer.from(text, decodingFrom);
+  const cipherText = bufferedText.slice(ALGORITHM.IV_BYTE_LEN);
+
+  const iv = bufferedText.slice(0, ALGORITHM.IV_BYTE_LEN);
+  const bKey = Buffer.from(key, decodingFrom);
+
+  const decipher = crypto.createDecipheriv(ALGORITHM.BLOCK_CIPHER, bKey, iv);
+  let decrypted = decipher.update(cipherText);
+  decrypted = Buffer.concat([decrypted, decipher.final()]);
   return {
-    decrypted,
+    text: decrypted.toString(decodingTo),
   };
 };
+
+// export const encryptWithRSA = ({ text, encodingFrom, encodingTo }) => {
+//   let PUBLIC_KEY;
+//   let PRIVATE_KEY;
+//   crypto.generateKeyPair('rsa', {
+//     modulusLength: 2048,
+//     publicKeyEncoding: {
+//       type: 'spki',
+//       format: 'pem',
+//     },
+//     privateKeyEncoding: {
+//       type: 'pkcs8',
+//       format: 'pem',
+//     },
+//   }, (error, publicKey, privateKey) => {
+//     if (error) {
+//       console.log(error);
+//     }
+//     PUBLIC_KEY = publicKey;
+//     PRIVATE_KEY = privateKey;
+//   });
+
+//   const toEncrypt = Buffer.from(text, encodingFrom);
+//   const encrypted = crypto.publicEncrypt(PUBLIC_KEY, toEncrypt).toString(encodingTo);
+//   return {
+//     text: encrypted,
+//     publicKey: PUBLIC_KEY,
+//     privateKey: PRIVATE_KEY,
+//   };
+// };
