@@ -9,9 +9,9 @@ import FooterContainer from './FooterContainer';
 const SidebarContainer = () => (
   <Aside bgColor="#101F32">
     <HeaderContainer />
-    <ProfileContainer />
+    {/* <ProfileContainer /> */}
     <NavContainer />
-    <OptNavContainer />
+    {/* <OptNavContainer /> */}
     <FooterContainer />
   </Aside>
 );

@@ -9,16 +9,14 @@ const pool = new Pool({
   port: 5432,
 });
 
-export const query = async (sql) => {
+export const query = async sql => {
   const client = await pool.connect();
   let result;
   try {
-    client.release();
     result = await client.query(sql);
   } catch (error) {
-    client.release();
     throw error;
   }
-
-  return result.rows;
+  client.release();
+  return result;
 };

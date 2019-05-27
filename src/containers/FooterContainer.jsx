@@ -4,9 +4,15 @@ import Footer from '../components/Footer';
 
 const FooterContainer = () => (
   <Footer>
-    <A href="https://nickew.github.io/" target="_blank" rel="noopener">nickew.github.io</A>
+    <A
+      Color="hsl(220, 50%, 25%)"
+      href="https://github.com/nickew/"
+      target="_blank"
+      rel="noopener"
+    >
+      github.com/nickew
+    </A>
   </Footer>
 );
-
 
 export default FooterContainer;

@@ -1,24 +1,26 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Button from './Button';
+import Span from './Span';
 
 const fieldStyles = css`
-  border: 2px solid #CDD9ED;
+  border: 2px solid #cdd9ed;
   width: 100%;
   border-radius: 8px;
-  color: #6C7486;
+  color: #6c7486;
   font-family: 'Roboto', sans-serif;
-  transition: all .25s;
-  font-size: .875rem;
+  transition: all 0.25s;
+  font-size: 0.875rem;
 
   &:focus {
-    border-color: #23C4F8;
+    border-color: #23c4f8;
     outline: none;
   }
   &:disabled {
-    background-color: #F9FBFE;
-    border-color: #E4ECFA;
-    color: #B4BED0;
+    background-color: #f9fbfe;
+    border-color: #e4ecfa;
+    color: #b4bed0;
   }
 `;
 
@@ -29,50 +31,88 @@ const Form = styled.form`
 `;
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ justifyContent }) => justifyContent || 'space-between'};
   margin: ${({ Margin }) => Margin};
+  align-items: flex-end;
 `;
 const Label = styled.label`
   display: block;
-  ${({ Width }) => Width && `
+  margin: ${({ Margin }) => Margin};
+
+  ${({ Width }) =>
+    Width &&
+    `
     width: ${Width};
   `}
 `;
-const Span = styled.span`
+const StyledSpan = styled(Span)`
   display: block;
-  color: #5B5B5B;
-  margin: 10px 0 10px 20px;
+  color: #5b5b5b;
+  margin: ${({ Margin }) => Margin || '10px 0 10px 20px'};
 `;
 const Input = styled.input`
   ${fieldStyles}
   height: 40px;
   padding: 15px;
   &::placeholder {
-    color: #CBD1DC;
+    color: #cbd1dc;
+  }
+  ${Label}:hover & {
+    border-color: #23c4f8;
   }
 `;
 const Select = styled.select`
   ${fieldStyles}
   height: 40px;
   padding-left: 10px;
-
+  ${Label}:hover & {
+    border-color: #23c4f8;
+  }
 `;
 const Option = styled.option`
   min-height: 40px;
   border-radius: 3px;
-  color: #A4A4A4;
+  color: #a4a4a4;
 `;
 const Textarea = styled.textarea`
   ${fieldStyles}
   padding: 15px;
-  min-height: 287px;
+  min-height: 75px;
   &::placeholder {
-    color: #CBD1DC;
+    color: #cbd1dc;
+  }
+  ${Label}:hover & {
+    border-color: #23c4f8;
   }
 `;
-const ButtonWrapper = styled(Button)`
 
+const ButtonWrapper = styled(Button)``;
+
+const HiddenInput = styled.div`
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 `;
+
+const LabeledInputFile = styled.label`
+  ${fieldStyles}
+  margin-right: 20px;
+  background: #fefefe;
+  &:hover {
+    border-color: #23c4f8;
+    cursor: pointer;
+  }
+`;
+
+const InputFile = ({ children, text }) => (
+  <LabeledInputFile>
+    <StyledSpan FontStyle="italic">{text}</StyledSpan>
+    <HiddenInput>{children}</HiddenInput>
+  </LabeledInputFile>
+);
 
 Form.Label = Label;
 Form.Input = Input;
@@ -80,13 +120,19 @@ Form.Select = Select;
 Form.Option = Option;
 Form.Textarea = Textarea;
 Form.Button = ButtonWrapper;
-Form.Span = Span;
+Form.Span = StyledSpan;
 Form.Row = Row;
+Form.InputFile = InputFile;
 
 Form.propTypes = {
   children: PropTypes.any,
   Margin: PropTypes.string,
   Width: PropTypes.string,
+};
+
+InputFile.propTypes = {
+  text: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Form;

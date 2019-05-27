@@ -22,10 +22,13 @@ export async function getRequest(url) {
 export async function postRequest(url, body) {
   if (url) {
     try {
-      console.log(body);
       const response = await fetch(url, {
+        credentials: 'include',
         method: 'post',
-        headers: defaultHeaders,
+        headers: {
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
         body: JSON.stringify(body),
       });
       const data = await response.json();

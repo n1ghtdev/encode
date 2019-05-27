@@ -1,11 +1,22 @@
 import React from 'react';
-
+/* eslint-disable no-unused-vars */
 export default React.createContext({
   outputData: {
-    data: {},
+    encrypted: {
+      text: null,
+    },
+    decrypted: {
+      text: null,
+    },
+    rsaEncrypted: {
+      text: null,
+    },
+    rsaDecrypted: {
+      text: null,
+    },
     loading: false,
     requestOutputData: () => {},
-    updateOutputData: (data) => {},
+    updateOutputData: data => {},
   },
   infoData: {
     data: {
@@ -14,6 +25,6 @@ export default React.createContext({
     },
     loading: false,
     requestInfoData: () => {},
-    updateInfoData: (data) => {},
+    updateInfoData: data => {},
   },
 });

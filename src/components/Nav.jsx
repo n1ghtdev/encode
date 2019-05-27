@@ -15,17 +15,18 @@ const Item = styled.li`
   display: block;
   color: #fff;
   cursor: pointer;
-  transition: all .25s;
+  transition: all 0.25s;
   &:hover {
-    background-color: #0B1A2E;
+    background-color: #0b1a2e;
   }
 `;
 
 const LinkWrapper = styled(Link)`
   display: block;
   padding: 15px 40px;
+  font-size: 0.875rem;
+  text-transform: uppercase;
   color: #fff;
-  text-transform: capitalize;
   text-decoration: none;
 `;
 

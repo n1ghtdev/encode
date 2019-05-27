@@ -3,14 +3,14 @@ import { useState } from 'react';
 const useFormControls = (callback, initialState) => {
   const [controls, setControls] = useState({ ...initialState });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     if (e) {
       e.preventDefault();
     }
     callback();
   };
 
-  const handleControlChange = (e) => {
+  const handleControlChange = e => {
     e.persist();
     setControls(ctrl => ({ ...ctrl, [e.target.name]: e.target.value }));
   };
@@ -19,7 +19,8 @@ const useFormControls = (callback, initialState) => {
     handleSubmit,
     handleControlChange,
     controls,
+    setControls,
   };
-}
+};
 
 export default useFormControls;

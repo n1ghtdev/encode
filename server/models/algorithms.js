@@ -10,6 +10,6 @@ export const getAlgorithmList = async () => {
     inner join modes on algorithm_mode.mode_id = modes.id
     group by algo.id, algo.name, algo.title, algo.keysize, algo.blocksize
     order by algo.name`;
-  const result = await query(sql, (res) => res);
-  return result;
+  const result = await query(sql);
+  return result.rows;
 };

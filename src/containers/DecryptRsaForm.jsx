@@ -5,31 +5,20 @@ import useFormControls from '../hooks/useFormControls';
 import { postRequest } from '../utils/makeRequest';
 import UploadJson from './UploadJson';
 
-const DecryptForm = ({ outputData, infoData }) => {
+const DecryptRsaForm = ({ outputData, infoData }) => {
   const decrypt = async () => {
     outputData.requestOutputData();
 
-    await postRequest('/api/decrypt', {
-      text: controls.encText,
-      algorithm: {
-        ...infoData.data.algorithmList.find(
-          a => a.id === Number(controls.encAlgorithm)
-        ),
-        modes:
-          controls.encAlgorithmMode === 'no mode'
-            ? null
-            : controls.encAlgorithmMode,
-      },
-      key: controls.encKey,
+    await postRequest('/api/rsa-decrypt', {
+      text: controls.decrRsaText,
+      privateKey: controls.decrRsaPrivKey,
       decodingFrom: controls.decodingFrom,
       decodingTo: controls.decodingTo,
     }).then(data => outputData.updateOutputData(data));
   };
   const initialState = {
-    encText: '',
-    encAlgorithm: infoData.data.algorithmList[0].id,
-    encAlgorithmMode: '',
-    encKey: '',
+    decrRsaText: '',
+    decrRsaPrivKey: '',
     decodingFrom: infoData.data.encodingList[1].name,
     decodingTo: infoData.data.encodingList[0].name,
   };
@@ -42,10 +31,8 @@ const DecryptForm = ({ outputData, infoData }) => {
   const updateInitialState = data => {
     setControls(ctrl => ({
       ...ctrl,
-      encText: data.text,
-      encKey: data.key,
-      encAlgorithm: data.algorithm.id,
-      encAlgorithmMode: data.algorithm.modes,
+      decrRsaText: data.text,
+      decrRsaPrivKey: data.privateKey,
     }));
   };
   return (
@@ -55,58 +42,22 @@ const DecryptForm = ({ outputData, infoData }) => {
         <Form.Textarea
           rows="15"
           type="input"
-          name="encText"
-          value={controls.encText}
+          name="decrRsaText"
+          value={controls.decrRsaText}
           onChange={handleControlChange}
           placeholder="зашифрованна текстова інформація..."
           required
         />
       </Form.Label>
-      <Form.Row>
-        <Form.Label Width="49%">
-          <Form.Span>Алгоритм шифрування</Form.Span>
-          <Form.Select
-            name="encAlgorithm"
-            value={controls.encAlgorithm.name}
-            onChange={handleControlChange}
-            required
-          >
-            {infoData.data.algorithmList.map(el => (
-              <Form.Option key={el.id} value={el.id}>
-                {el.title}
-              </Form.Option>
-            ))}
-          </Form.Select>
-        </Form.Label>
-        <Form.Label Width="49%">
-          <Form.Span>Режим шифрування</Form.Span>
-          <Form.Select
-            name="encAlgorithmMode"
-            value={controls.encAlgorithmMode}
-            onChange={handleControlChange}
-            required
-          >
-            <Form.Option key={-1} value="" disabled>
-              Обрати режим
-            </Form.Option>
-            {infoData.data.algorithmList
-              .find(a => a.id === Number(controls.encAlgorithm))
-              .modes.map(mode => (
-                <Form.Option key={mode.id} value={mode.name}>
-                  {mode.name}
-                </Form.Option>
-              ))}
-          </Form.Select>
-        </Form.Label>
-      </Form.Row>
       <Form.Label>
-        <Form.Span>Ключ шифрування</Form.Span>
-        <Form.Input
+        <Form.Span>Секретний ключ шифрування</Form.Span>
+        <Form.Textarea
+          rows="5"
           type="input"
-          name="encKey"
-          value={controls.encKey}
+          name="decrRsaPrivKey"
+          value={controls.decrRsaPrivKey}
           onChange={handleControlChange}
-          placeholder="секретний ключ шифрування..."
+          placeholder="секретний/закритий ключ шифрування"
         />
       </Form.Label>
       <Form.Row>
@@ -151,9 +102,9 @@ const DecryptForm = ({ outputData, infoData }) => {
   );
 };
 
-DecryptForm.propTypes = {
+DecryptRsaForm.propTypes = {
   outputData: PropTypes.object.isRequired,
   infoData: PropTypes.object.isRequired,
 };
 
-export default DecryptForm;
+export default DecryptRsaForm;

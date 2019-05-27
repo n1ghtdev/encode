@@ -3,62 +3,48 @@ import PropTypes from 'prop-types';
 import Form from '../components/Form';
 import useFormControls from '../hooks/useFormControls';
 import { postRequest } from '../utils/makeRequest';
-import UploadJson from './UploadJson';
 
-const DecryptForm = ({ outputData, infoData }) => {
-  const decrypt = async () => {
+const EncryptForm = ({ outputData, infoData }) => {
+  const encrypt = async () => {
     outputData.requestOutputData();
 
-    await postRequest('/api/decrypt', {
-      text: controls.encText,
+    await postRequest('/api/encrypt', {
+      text: controls.text,
       algorithm: {
         ...infoData.data.algorithmList.find(
-          a => a.id === Number(controls.encAlgorithm)
+          a => a.id === Number(controls.algorithm)
         ),
         modes:
-          controls.encAlgorithmMode === 'no mode'
-            ? null
-            : controls.encAlgorithmMode,
+          controls.algorithmMode === 'no mode' ? null : controls.algorithmMode,
       },
-      key: controls.encKey,
-      decodingFrom: controls.decodingFrom,
-      decodingTo: controls.decodingTo,
+      key: controls.key,
+      encodingFrom: controls.encodingFrom,
+      encodingTo: controls.encodingTo,
     }).then(data => outputData.updateOutputData(data));
   };
   const initialState = {
-    encText: '',
-    encAlgorithm: infoData.data.algorithmList[0].id,
-    encAlgorithmMode: '',
-    encKey: '',
-    decodingFrom: infoData.data.encodingList[1].name,
-    decodingTo: infoData.data.encodingList[0].name,
+    text: '',
+    algorithm: infoData.data.algorithmList[0].id,
+    algorithmMode: '',
+    key: '',
+    encodingFrom: infoData.data.encodingList[0].name,
+    encodingTo: infoData.data.encodingList[1].name,
   };
-  const {
-    controls,
-    handleSubmit,
-    handleControlChange,
-    setControls,
-  } = useFormControls(decrypt, initialState);
-  const updateInitialState = data => {
-    setControls(ctrl => ({
-      ...ctrl,
-      encText: data.text,
-      encKey: data.key,
-      encAlgorithm: data.algorithm.id,
-      encAlgorithmMode: data.algorithm.modes,
-    }));
-  };
+  const { controls, handleSubmit, handleControlChange } = useFormControls(
+    encrypt,
+    initialState
+  );
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Label>
-        <Form.Span>Зашифрований текст (шифротекст)</Form.Span>
+        <Form.Span>Текст для шифрування</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
-          name="encText"
-          value={controls.encText}
+          name="text"
+          value={controls.text}
           onChange={handleControlChange}
-          placeholder="зашифрованна текстова інформація..."
+          placeholder="текстова інформація..."
           required
         />
       </Form.Label>
@@ -66,8 +52,8 @@ const DecryptForm = ({ outputData, infoData }) => {
         <Form.Label Width="49%">
           <Form.Span>Алгоритм шифрування</Form.Span>
           <Form.Select
-            name="encAlgorithm"
-            value={controls.encAlgorithm.name}
+            name="algorithm"
+            value={controls.algorithm.name}
             onChange={handleControlChange}
             required
           >
@@ -81,8 +67,8 @@ const DecryptForm = ({ outputData, infoData }) => {
         <Form.Label Width="49%">
           <Form.Span>Режим шифрування</Form.Span>
           <Form.Select
-            name="encAlgorithmMode"
-            value={controls.encAlgorithmMode}
+            name="algorithmMode"
+            value={controls.algorithmMode}
             onChange={handleControlChange}
             required
           >
@@ -90,7 +76,7 @@ const DecryptForm = ({ outputData, infoData }) => {
               Обрати режим
             </Form.Option>
             {infoData.data.algorithmList
-              .find(a => a.id === Number(controls.encAlgorithm))
+              .find(a => a.id === Number(controls.algorithm))
               .modes.map(mode => (
                 <Form.Option key={mode.id} value={mode.name}>
                   {mode.name}
@@ -100,21 +86,23 @@ const DecryptForm = ({ outputData, infoData }) => {
         </Form.Label>
       </Form.Row>
       <Form.Label>
-        <Form.Span>Ключ шифрування</Form.Span>
+        <Form.Span>
+          Ключ шифрування (залешіть пустим для генерації випадкового ключа)
+        </Form.Span>
         <Form.Input
           type="input"
-          name="encKey"
-          value={controls.encKey}
+          name="key"
+          value={controls.key}
           onChange={handleControlChange}
-          placeholder="секретний ключ шифрування..."
+          placeholder="Ключ шифрування..."
         />
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Початкове кодування шифротекста</Form.Span>
+          <Form.Span>Початкове кодування тексту</Form.Span>
           <Form.Select
-            name="decodingFrom"
-            value={controls.decodingFrom}
+            name="encodingFrom"
+            value={controls.encodingFrom}
             onChange={handleControlChange}
             required
           >
@@ -126,10 +114,10 @@ const DecryptForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Остаточне кодування текста</Form.Span>
+          <Form.Span>Остаточне кодування шифротекста</Form.Span>
           <Form.Select
-            name="decodingTo"
-            value={controls.decodingTo}
+            name="encodingTo"
+            value={controls.encodingTo}
             onChange={handleControlChange}
             required
           >
@@ -141,19 +129,18 @@ const DecryptForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
       </Form.Row>
-      <UploadJson updateInitialState={updateInitialState} />
       <Form.Row Margin="20px auto">
         <Form.Button type="submit" primary>
-          дешифрувати
+          шифрувати
         </Form.Button>
       </Form.Row>
     </Form>
   );
 };
 
-DecryptForm.propTypes = {
+EncryptForm.propTypes = {
   outputData: PropTypes.object.isRequired,
   infoData: PropTypes.object.isRequired,
 };
 
-export default DecryptForm;
+export default EncryptForm;

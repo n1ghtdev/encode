@@ -9,11 +9,17 @@ export const rootReducer = (state, action) => {
     case REQUEST_OUTPUT_DATA:
       return { ...state, outputData: { ...state.outputData, loading: true } };
     case UPDATE_OUTPUT_DATA:
-      return { ...state, outputData: { ...state.outputData, data: action.data, loading: false } };
+      return {
+        ...state,
+        outputData: { ...state.outputData, ...action.data, loading: false },
+      };
     case REQUEST_INFO_DATA:
       return { ...state, infoData: { ...state.infoData, loading: true } };
     case UPDATE_INFO_DATA:
-      return { ...state, infoData: { ...state.infoData, data: action.data, loading: false } };
+      return {
+        ...state,
+        infoData: { ...state.infoData, data: action.data, loading: false },
+      };
     default:
       return state;
   }

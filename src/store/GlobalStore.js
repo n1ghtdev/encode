@@ -9,10 +9,21 @@ import {
   UPDATE_INFO_DATA,
 } from './reducers';
 
-const GlobalStore = (props) => {
+const GlobalStore = props => {
   const initialState = {
     outputData: {
-      data: {},
+      encrypted: {
+        text: null,
+      },
+      decrypted: {
+        text: null,
+      },
+      rsaEncrypted: {
+        text: null,
+      },
+      rsaDecrypted: {
+        text: null,
+      },
       loading: false,
     },
     infoData: {
@@ -30,7 +41,7 @@ const GlobalStore = (props) => {
     dispatch({ type: REQUEST_OUTPUT_DATA });
   };
 
-  const updateOutputData = (data) => {
+  const updateOutputData = data => {
     dispatch({ type: UPDATE_OUTPUT_DATA, data });
   };
 
@@ -38,7 +49,7 @@ const GlobalStore = (props) => {
     dispatch({ type: REQUEST_INFO_DATA });
   };
 
-  const updateInfoData = (data) => {
+  const updateInfoData = data => {
     dispatch({ type: UPDATE_INFO_DATA, data });
   };
 
