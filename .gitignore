@@ -16,6 +16,9 @@
 node_modules
 build
 
+### Configs/Tokens ###
+server/config/*
+
 # Swap
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
