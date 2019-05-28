@@ -4,10 +4,13 @@ import { logIn } from '../services/login';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {});
+router.get('/dashboard', (req, res) => {
+  console.log(req.signedCookies);
+});
 
 router.post('/signup', async (req, res) => {
   const response = await signUp(req.body);
+  console.log('a', response);
   res.send(JSON.stringify(response));
 });
 

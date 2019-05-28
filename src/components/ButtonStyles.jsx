@@ -29,3 +29,15 @@ export const ButtonSuccess = css`
     opacity: 0.9;
   }
 `;
+
+export const ButtonText = css`
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #0e0e0e;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;

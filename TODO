@@ -3,6 +3,7 @@ Monday, May 27, 2019:
   ☐ add MainPage
     ☐ contains Welcome message and quick How To
   ☐ clickable Logotype
+  ☐ fix rc4, des (invalid iv length)
 
 Wednesday, May 22, 2019:
   ✘ fix getUserByEmail to work for signup and login methods @cancelled(19-05-27 17:04)

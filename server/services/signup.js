@@ -36,7 +36,7 @@ export async function signUp(user) {
     } else {
       state = {
         ...initialState,
-        status: 500,
+        status: 409,
         message: 'user with this email already exists',
       };
     }
@@ -47,6 +47,6 @@ export async function signUp(user) {
       message: 'invalid input data',
     };
   }
-
+  console.log(state);
   return state;
 }

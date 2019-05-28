@@ -33,7 +33,7 @@ const Row = styled.div`
   display: flex;
   justify-content: ${({ justifyContent }) => justifyContent || 'space-between'};
   margin: ${({ Margin }) => Margin};
-  align-items: flex-end;
+  align-items: ${({ alignItems }) => alignItems || 'flex-end'};
 `;
 const Label = styled.label`
   display: block;

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ButtonPrimary, ButtonSuccess } from './ButtonStyles';
+import { ButtonPrimary, ButtonSuccess, ButtonText } from './ButtonStyles';
 
 const Button = styled.button`
   ${({ primary }) =>
@@ -15,6 +15,11 @@ const Button = styled.button`
       padding: 0 40px;
       height: 40px;
       ${ButtonSuccess}
+    `}
+  ${({ text }) =>
+    text &&
+    css`
+      ${ButtonText}
     `}
 `;
 

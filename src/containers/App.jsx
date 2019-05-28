@@ -18,7 +18,7 @@ const App = () => {
     infoData.requestInfoData();
 
     await getRequest('/api/get-data').then(data =>
-      infoData.updateInfoData(data)
+      infoData.updateInfoData(data),
     );
   };
 
