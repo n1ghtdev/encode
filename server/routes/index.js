@@ -1,10 +1,10 @@
 import express from 'express';
-import { ApiRoute } from './routes';
-import { auth } from './auth';
+import { ApiRoute } from './apiRoute';
+import { AuthRoute } from './authRoute';
 
 const router = express.Router();
 
 router.use('/api', ApiRoute);
-router.use('/auth', auth);
+router.use('/auth', AuthRoute);
 
 export { router };

@@ -13,14 +13,14 @@ const DecryptForm = ({ outputData, infoData }) => {
       text: controls.encText,
       algorithm: {
         ...infoData.data.algorithmList.find(
-          a => a.id === Number(controls.encAlgorithm)
+          a => a.id === Number(controls.encAlgorithm),
         ),
         modes:
           controls.encAlgorithmMode === 'no mode'
             ? null
             : controls.encAlgorithmMode,
       },
-      key: controls.encKey,
+      privateKey: controls.encKey,
       decodingFrom: controls.decodingFrom,
       decodingTo: controls.decodingTo,
     }).then(data => outputData.updateOutputData(data));
@@ -118,7 +118,7 @@ const DecryptForm = ({ outputData, infoData }) => {
             onChange={handleControlChange}
             required
           >
-            {infoData.data.encodingList.map(el => (
+            {infoData.data.encodingList.slice(1, 3).map(el => (
               <Form.Option key={el.id} value={el.name}>
                 {el.title}
               </Form.Option>

@@ -58,6 +58,7 @@ const DecryptRsaForm = ({ outputData, infoData }) => {
           value={controls.decrRsaPrivKey}
           onChange={handleControlChange}
           placeholder="секретний/закритий ключ шифрування"
+          required
         />
       </Form.Label>
       <Form.Row>
@@ -69,7 +70,7 @@ const DecryptRsaForm = ({ outputData, infoData }) => {
             onChange={handleControlChange}
             required
           >
-            {infoData.data.encodingList.map(el => (
+            {infoData.data.encodingList.slice(1, 3).map(el => (
               <Form.Option key={el.id} value={el.name}>
                 {el.title}
               </Form.Option>

@@ -10,7 +10,7 @@ const EncryptRsaForm = ({ outputData, infoData }) => {
 
     await postRequest('/api/rsa-encrypt', {
       text: controls.text,
-      publKey: controls.publKey,
+      publicKey: controls.publKey,
       encodingFrom: controls.encodingFrom,
       encodingTo: controls.encodingTo,
     }).then(data => outputData.updateOutputData(data));
@@ -78,7 +78,7 @@ const EncryptRsaForm = ({ outputData, infoData }) => {
             onChange={handleControlChange}
             required
           >
-            {infoData.data.encodingList.map(el => (
+            {infoData.data.encodingList.slice(1, 3).map(el => (
               <Form.Option key={el.id} value={el.name}>
                 {el.title}
               </Form.Option>

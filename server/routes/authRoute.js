@@ -4,9 +4,9 @@ import { logIn } from '../services/login';
 
 const router = express.Router();
 
-router.get('/dashboard', (req, res) => {
-  console.log(req.signedCookies);
-});
+// router.get('/dashboard', (req, res) => {
+//   console.log(req.signedCookies);
+// });
 
 router.post('/signup', async (req, res) => {
   const response = await signUp(req.body);
@@ -24,4 +24,4 @@ router.post('/login', async (req, res) => {
   res.send(JSON.stringify(response));
 });
 
-export { router as auth };
+export { router as AuthRoute };

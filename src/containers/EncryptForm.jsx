@@ -12,12 +12,12 @@ const EncryptForm = ({ outputData, infoData }) => {
       text: controls.text,
       algorithm: {
         ...infoData.data.algorithmList.find(
-          a => a.id === Number(controls.algorithm)
+          a => a.id === Number(controls.algorithm),
         ),
         modes:
           controls.algorithmMode === 'no mode' ? null : controls.algorithmMode,
       },
-      key: controls.key,
+      password: controls.key,
       encodingFrom: controls.encodingFrom,
       encodingTo: controls.encodingTo,
     }).then(data => outputData.updateOutputData(data));
@@ -32,7 +32,7 @@ const EncryptForm = ({ outputData, infoData }) => {
   };
   const { controls, handleSubmit, handleControlChange } = useFormControls(
     encrypt,
-    initialState
+    initialState,
   );
   return (
     <Form onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ const EncryptForm = ({ outputData, infoData }) => {
               .find(a => a.id === Number(controls.algorithm))
               .modes.map(mode => (
                 <Form.Option key={mode.id} value={mode.name}>
-                  {mode.name}
+                  {mode.title}
                 </Form.Option>
               ))}
           </Form.Select>
@@ -121,7 +121,7 @@ const EncryptForm = ({ outputData, infoData }) => {
             onChange={handleControlChange}
             required
           >
-            {infoData.data.encodingList.map(el => (
+            {infoData.data.encodingList.slice(1, 3).map(el => (
               <Form.Option key={el.id} value={el.name}>
                 {el.title}
               </Form.Option>

@@ -1,9 +1,10 @@
 import { query } from './index';
 
-export const getAlgorithmList = async () => {
+const getAlgorithmList = async () => {
   const sql = `select algo.id, algo.name, algo.title, algo.keysize, algo.blocksize, json_agg(json_build_object(
       'id', modes.id,
-      'name', modes.name
+      'name', modes.name,
+      'title', modes.title
     )) as modes
     from encrypt_algorithms as algo
     inner join algorithm_mode on algo.id = algorithm_mode.algorithm_id
@@ -13,3 +14,9 @@ export const getAlgorithmList = async () => {
   const result = await query(sql);
   return result.rows;
 };
+
+const Algorithm = {
+  getAlgorithmList,
+};
+
+export default Algorithm;
