@@ -6,7 +6,6 @@ import Form from '../components/Form';
 
 const SignUpContainer = ({ closeModal }) => {
   const signup = async () => {
-    console.log('heh');
     await postRequest('/auth/signup', {
       email: controls.email,
       username: controls.username,
@@ -22,7 +21,6 @@ const SignUpContainer = ({ closeModal }) => {
     signup,
     initialState,
   );
-  console.log(controls);
   return (
     <div>
       <span>Реєстрація</span>

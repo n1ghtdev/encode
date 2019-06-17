@@ -12,7 +12,6 @@ async function getUserByEmail(email) {
     values: [email],
   };
   const result = await query(sql);
-  console.log(result.rows);
   return result.rows[0];
 }
 

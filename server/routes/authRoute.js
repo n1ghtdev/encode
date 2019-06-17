@@ -1,6 +1,5 @@
 import express from 'express';
-import { signUp } from '../services/signup';
-import { logIn } from '../services/login';
+import AuthController from '../controllers/AuthController';
 
 const router = express.Router();
 
@@ -8,20 +7,8 @@ const router = express.Router();
 //   console.log(req.signedCookies);
 // });
 
-router.post('/signup', async (req, res) => {
-  const response = await signUp(req.body);
-  console.log('a', response);
-  res.send(JSON.stringify(response));
-});
+router.post('/signup', AuthController.signup);
 
-router.post('/login', async (req, res) => {
-  const response = await logIn(req.body);
-  res.cookie('user_id', response.uid, {
-    httpOnly: true,
-    // secure: true, only in prod
-    signed: true,
-  });
-  res.send(JSON.stringify(response));
-});
+router.post('/login', AuthController.login);
 
 export { router as AuthRoute };

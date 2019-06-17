@@ -5,7 +5,7 @@ const Profile = styled.div`
   width: 100%;
   height: 70px;
   padding: 0 20px;
-  background-color: #0B1A2E;
+  background-color: #0b1a2e;
   display: flex;
   align-items: center;
 `;
@@ -15,7 +15,7 @@ const Photo = styled.img.attrs(({ imgAlt, imgSrc }) => ({
   src: imgSrc || 'https://i.imgur.com/04YIjte.png',
 }))`
   border-radius: 50%;
-  background-color: #101F32;
+  background-color: #101f32;
   width: 50px;
   height: 50px;
 `;

@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { postRequest } from '../utils/makeRequest';
 import useFormControls from '../hooks/useFormControls';
 import Form from '../components/Form';
 
-const LogInContainer = ({ closeModal }) => {
+const LogInContainer = ({ setToken, closeModal }) => {
   const login = async () => {
     console.log(controls);
     await postRequest('/auth/login', {
       email: controls.email,
       password: controls.password,
-    }).then(data => console.log(data));
+    }).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        setToken(response.token);
+        toast.success('Successfuly logged in!');
+        closeModal();
+      } else {
+        toast.error(`${response.status} - ${response.message}`, {
+          autoClose: false,
+        });
+      }
+    });
   };
   const initialState = {
     email: '',
@@ -23,7 +35,7 @@ const LogInContainer = ({ closeModal }) => {
   );
   return (
     <div>
-      <span>Реєстрація</span>
+      <span>Авторизація</span>
       <Form Margin="25px 0 0 0" onSubmit={handleSubmit}>
         <Form.Label>
           <Form.Span>Електронна адреса</Form.Span>
@@ -62,6 +74,7 @@ const LogInContainer = ({ closeModal }) => {
 
 LogInContainer.propTypes = {
   closeModal: PropTypes.func,
+  setToken: PropTypes.func,
 };
 
 export default LogInContainer;

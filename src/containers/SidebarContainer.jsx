@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Aside from '../components/Aside';
 import HeaderContainer from './HeaderContainer';
 import ProfileContainer from './ProfileContainer';
@@ -8,8 +8,10 @@ import FooterContainer from './FooterContainer';
 import ModalContainer from './ModalContainer';
 import SignUpContainer from './SignUpContainer';
 import LogInContainer from './LogInContainer';
+import AuthContext from '../store/auth/AuthContext';
 
 const SidebarContainer = () => {
+  const context = useContext(AuthContext);
   const [signupModalState, setSignupModalState] = React.useState(false);
   const [loginModalState, setLoginModalState] = React.useState(false);
 
@@ -38,39 +40,42 @@ const SidebarContainer = () => {
         onRequestClose={closeModal}
         shouldCloseOnOverlayClick
       >
-        <LogInContainer closeModal={closeModal} />
+        <LogInContainer setToken={context.setToken} closeModal={closeModal} />
       </ModalContainer>
       <HeaderContainer />
-      <ProfileContainer />
-      <div style={{ margin: '20px auto' }}>
-        <button
-          onClick={signUp}
-          style={{
-            border: 'none',
-            background: '#fff',
-            borderRadius: '5px',
-            height: '30px',
-            marginRight: '5px',
-            cursor: 'pointer',
-          }}
-        >
-          зареєструватися
-        </button>
-        <button
-          onClick={logIn}
-          style={{
-            border: 'none',
-            background: '#fff',
-            borderRadius: '5px',
-            height: '30px',
-            cursor: 'pointer',
-          }}
-        >
-          увійти
-        </button>
-      </div>
+      {/* {context.isLoggedIn ? (
+        <ProfileContainer />
+      ) : (
+        <div style={{ margin: '20px auto' }}>
+          <button
+            onClick={signUp}
+            style={{
+              border: 'none',
+              background: '#fff',
+              borderRadius: '5px',
+              height: '30px',
+              marginRight: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            зареєструватися
+          </button>
+          <button
+            onClick={logIn}
+            style={{
+              border: 'none',
+              background: '#fff',
+              borderRadius: '5px',
+              height: '30px',
+              cursor: 'pointer',
+            }}
+          >
+            увійти
+          </button>
+        </div>
+      )} */}
       <NavContainer />
-      {/* <OptNavContainer /> */}
+      {context.isLoggedIn ? <OptNavContainer logout={context.logout} /> : null}
       <FooterContainer />
     </Aside>
   );

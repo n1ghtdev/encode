@@ -15,10 +15,10 @@ const EncryptRsaPage = () => {
         'loading...'
       ) : (
         <Row>
-          <Col lg={6} Padding="0 20px 0 0">
+          <Col sm={12} lg={6} Padding="0 20px 0 0">
             <EncryptRsaForm outputData={outputData} infoData={infoData} />
           </Col>
-          <Col lg={6} Padding="0 0 0 20px">
+          <Col sm={12} lg={6} Padding="0 0 0 20px">
             <EncryptRsaOutput outputData={outputData} />
           </Col>
         </Row>

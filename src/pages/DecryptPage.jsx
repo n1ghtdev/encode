@@ -15,10 +15,10 @@ const DecryptPage = () => {
         'loading...'
       ) : (
         <Row>
-          <Col lg={6} Padding="0 20px 0 0">
+          <Col sm={12} lg={6} Padding="0 20px 0 0">
             <DecryptForm outputData={outputData} infoData={infoData} />
           </Col>
-          <Col lg={6} Padding="0 0 0 20px">
+          <Col sm={12} lg={6} Padding="0 0 0 20px">
             <DecryptOutput outputData={outputData} />
           </Col>
         </Row>

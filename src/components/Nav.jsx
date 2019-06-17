@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import A from './A';
 
 const Nav = styled.nav`
   margin: ${({ Margin }) => Margin};
@@ -28,6 +27,11 @@ const LinkWrapper = styled(Link)`
   text-transform: uppercase;
   color: #fff;
   text-decoration: none;
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: #112645;
+    `}
 `;
 
 Nav.propTypes = {

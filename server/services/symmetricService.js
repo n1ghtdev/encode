@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-
+/*eslint-disable*/
 export default function symmetricService({ text, algorithm }) {
   const ALGORITHM = {
     CIPHER: algorithm.modes
@@ -9,7 +9,6 @@ export default function symmetricService({ text, algorithm }) {
     IV_LEN: algorithm.blocksize / 8,
     SALT_LEN: 16,
   };
-
   /* util functions - generates key, key from secret word, initialized vector, salt */
   const getKeyFromPassword = (password, salt, keyLength) =>
     crypto.scryptSync(password, salt, keyLength);
@@ -31,6 +30,7 @@ export default function symmetricService({ text, algorithm }) {
     return key;
   };
   /* end util functions */
+
   const encrypt = ({
     password,
     encodingFrom = 'utf8',
