@@ -20,11 +20,11 @@ const UploadJson = ({ updateInitialState }) => {
   };
   return (
     <Form.Row Margin="25px 0 0 0">
-      <Form.InputFile text={fileName || 'Оберіть JSON файл'}>
+      <Form.InputFile text={fileName || 'Choose JSON file'}>
         <input type="file" ref={inputRef} onChange={onChange} />
       </Form.InputFile>
       <Form.Button onClick={handleUpload} type="button" success>
-        завантажити JSON
+        Upload JSON
       </Form.Button>
     </Form.Row>
   );

@@ -6,9 +6,9 @@
 *.iml
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
 /build/
+/server/public/
+/nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/

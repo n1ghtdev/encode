@@ -38,32 +38,32 @@ const DecryptRsaForm = ({ outputData, infoData }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Label>
-        <Form.Span>Зашифрований текст (шифротекст)</Form.Span>
+        <Form.Span>Encrypted text</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="decrRsaText"
           value={controls.decrRsaText}
           onChange={handleControlChange}
-          placeholder="зашифрованна текстова інформація..."
+          placeholder="encrypted text information..."
           required
         />
       </Form.Label>
       <Form.Label>
-        <Form.Span>Секретний ключ шифрування</Form.Span>
+        <Form.Span>Secret key</Form.Span>
         <Form.Textarea
           rows="5"
           type="input"
           name="decrRsaPrivKey"
           value={controls.decrRsaPrivKey}
           onChange={handleControlChange}
-          placeholder="секретний/закритий ключ шифрування"
+          placeholder="secret encryption key"
           required
         />
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Початкове кодування шифротекста</Form.Span>
+          <Form.Span>Decode from</Form.Span>
           <Form.Select
             name="decodingFrom"
             value={controls.decodingFrom}
@@ -78,7 +78,7 @@ const DecryptRsaForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Остаточне кодування текста</Form.Span>
+          <Form.Span>Decode to</Form.Span>
           <Form.Select
             name="decodingTo"
             value={controls.decodingTo}
@@ -96,7 +96,7 @@ const DecryptRsaForm = ({ outputData, infoData }) => {
       <UploadJson updateInitialState={updateInitialState} />
       <Form.Row Margin="20px auto">
         <Form.Button type="submit" primary>
-          дешифрувати
+          decrypt
         </Form.Button>
       </Form.Row>
     </Form>

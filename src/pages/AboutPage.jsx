@@ -26,34 +26,32 @@ const EncryptPage = () => {
     <Container fluid>
       <Row>
         <Col>
-          <H2 Color="#5b5b5b">Опис веб-додатку</H2>
+          <H2 Color="#5b5b5b">About "Encode"</H2>
           <StyledHr />
         </Col>
         <Row>
-          <Col lg={6}>
-            <Paragraph style={{ textIndent: '1rem', marginBottom: '1rem' }}>
-              Веб-додаток "Encode" призначений для надання послуг кодування та
-              декодування текстової інформації. Кожен користувач мережою
-              Інтернет має можливість використовувати цей веб-додаток.
+          <Col sm={12} md={12} lg={6}>
+            <Paragraph style={{ marginBottom: '1rem' }}>
+              Encode - web application provides encryption and decryption
+              services to all web users.
             </Paragraph>
-            <Paragraph style={{ textIndent: '1rem', marginBottom: '1rem' }}>
-              Операції кодування та декодування здійснюються на стороні сервера
-              за допомогою бібліотеки <strong>crypto</strong>.
+            <Paragraph style={{ marginBottom: '1rem' }}>
+              Encryption and decryption operations are executing on server side
+              with library <strong>crypto</strong>.
             </Paragraph>
             <Paragraph>
-              Для симетричного кодування доступні наступні алгоритми:
+              Available symmetric algorithms:
               <List>
                 <ListItem>AES 128/192/256;</ListItem>
                 <ListItem>Blowfish;</ListItem>
                 <ListItem>Camellia 128/192/256;</ListItem>
                 <ListItem>Cast5;</ListItem>
-                <ListItem>RC2;</ListItem>
                 <ListItem>SEED.</ListItem>
               </List>
             </Paragraph>
             <Paragraph>
-              Для асиметрично кодування застосовано тільки алгоритм RSA з
-              довижною ключа 2048-бітів.
+              Asymmetric encryption provides only RSA algorithm with key size of
+              2048 bits.
             </Paragraph>
           </Col>
         </Row>

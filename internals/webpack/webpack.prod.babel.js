@@ -1,13 +1,12 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import CompressionPlugin from 'compression-webpack-plugin';
+const path = require('path');
+const { HashedModuleIdsPlugin } = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
-  entry: [
-    path.join(process.cwd(), 'src/index.jsx'),
-  ],
+  entry: [path.join(process.cwd(), 'src/index.jsx')],
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
@@ -37,23 +36,20 @@ module.exports = require('./webpack.base.babel')({
     sideEffects: true,
     concatenateModules: true,
     splitChunks: {
-      chunks: 'all',
-      minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: true,
+      chunks: 'initial',
+      maxInitialRequests: 10,
+      minSize: 0,
       cacheGroups: {
-        commons: {
+        react: {
+          test: /react/,
+          name: 'react',
+          chunks: 'all',
+          enforce: true,
+        },
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
-          chunks: 'all',
-        },
-        main: {
-          chunks: 'all',
-          minChunks: 2,
-          reuseExistingChunk: true,
-          enforce: true,
+          priority: -10,
         },
       },
     },
@@ -82,9 +78,14 @@ module.exports = require('./webpack.base.babel')({
       threshold: 10240,
       minRatio: 0.8,
     }),
+    new HashedModuleIdsPlugin({
+      hashFunction: 'sha256',
+      hashDigest: 'hex',
+      hashDigestLength: 20,
+    }),
   ],
   performance: {
-    assetFilter: (assetFilename) =>
+    assetFilter: assetFilename =>
       !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
 });

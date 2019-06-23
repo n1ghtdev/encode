@@ -51,20 +51,20 @@ const DecryptForm = ({ outputData, infoData }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Label>
-        <Form.Span>Зашифрований текст (шифротекст)</Form.Span>
+        <Form.Span>Encrypted text</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="encText"
           value={controls.encText}
           onChange={handleControlChange}
-          placeholder="зашифрованна текстова інформація..."
+          placeholder="encrypted text information..."
           required
         />
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Алгоритм шифрування</Form.Span>
+          <Form.Span>Encryption algorithm</Form.Span>
           <Form.Select
             name="encAlgorithm"
             value={controls.encAlgorithm.name}
@@ -79,7 +79,7 @@ const DecryptForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Режим шифрування</Form.Span>
+          <Form.Span>Encryption mode</Form.Span>
           <Form.Select
             name="encAlgorithmMode"
             value={controls.encAlgorithmMode}
@@ -87,7 +87,7 @@ const DecryptForm = ({ outputData, infoData }) => {
             required
           >
             <Form.Option key={-1} value="" disabled>
-              Обрати режим
+              Choose mode
             </Form.Option>
             {infoData.data.algorithmList
               .find(a => a.id === Number(controls.encAlgorithm))
@@ -100,18 +100,18 @@ const DecryptForm = ({ outputData, infoData }) => {
         </Form.Label>
       </Form.Row>
       <Form.Label>
-        <Form.Span>Ключ шифрування</Form.Span>
+        <Form.Span>Encryption key</Form.Span>
         <Form.Input
           type="input"
           name="encKey"
           value={controls.encKey}
           onChange={handleControlChange}
-          placeholder="секретний ключ шифрування..."
+          placeholder="secret encryption key..."
         />
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Початкове кодування шифротекста</Form.Span>
+          <Form.Span>Decode from</Form.Span>
           <Form.Select
             name="decodingFrom"
             value={controls.decodingFrom}
@@ -126,7 +126,7 @@ const DecryptForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Остаточне кодування текста</Form.Span>
+          <Form.Span>Decode to</Form.Span>
           <Form.Select
             name="decodingTo"
             value={controls.decodingTo}
@@ -144,7 +144,7 @@ const DecryptForm = ({ outputData, infoData }) => {
       <UploadJson updateInitialState={updateInitialState} />
       <Form.Row Margin="20px auto">
         <Form.Button type="submit" primary>
-          дешифрувати
+          decrypt
         </Form.Button>
       </Form.Row>
     </Form>

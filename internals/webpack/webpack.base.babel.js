@@ -1,15 +1,16 @@
-import path from 'path';
-import webpack from 'webpack';
+const webpack = require('webpack');
+const path = require('path');
 
-process.noDeprecation = true;
-
-module.exports = (options) => ({
+module.exports = options => ({
   mode: options.mode,
   entry: options.entry,
-  output: Object.assign({
-    path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/',
-  }, options.output),
+  output: Object.assign(
+    {
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/',
+    },
+    options.output,
+  ),
   optimization: options.optimization,
   module: {
     rules: [
@@ -93,10 +94,8 @@ module.exports = (options) => ({
   },
 
   plugins: options.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
     }),
   ]),
 
@@ -108,5 +107,4 @@ module.exports = (options) => ({
   devtool: options.devtool,
   target: 'web',
   performance: options.performance || {},
-
 });

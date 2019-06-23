@@ -13,12 +13,12 @@ const NavContainer = React.memo(({ location }) => {
               location.pathname === '/encrypt' || location.pathname === '/'
             }
           >
-            шифрування
+            symmetric encrypt
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link to="/decrypt" active={location.pathname === '/decrypt'}>
-            дешифрування
+            symmetric decrypt
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -26,7 +26,7 @@ const NavContainer = React.memo(({ location }) => {
             to="/rsa-encrypt"
             active={location.pathname === '/rsa-encrypt'}
           >
-            RSA шифрування
+            RSA encrypt
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -34,12 +34,12 @@ const NavContainer = React.memo(({ location }) => {
             to="/rsa-decrypt"
             active={location.pathname === '/rsa-decrypt'}
           >
-            RSA дешифрування
+            RSA decrypt
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link to="/about" active={location.pathname === '/about'}>
-            Опис веб-сайту
+            about
           </Nav.Link>
         </Nav.Item>
       </Nav.List>

@@ -28,35 +28,34 @@ const EncryptRsaForm = ({ outputData, infoData }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Label>
-        <Form.Span>Текст для шифрування</Form.Span>
+        <Form.Span>Text</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="text"
           value={controls.text}
           onChange={handleControlChange}
-          placeholder="текстова інформація..."
+          placeholder="text information..."
           required
         />
       </Form.Label>
       <Form.Label>
-        <Form.Span>Відкритий ключ шифрування</Form.Span>
+        <Form.Span>Public key</Form.Span>
         <Form.Textarea
           rows="5"
           type="input"
           name="publKey"
           value={controls.publKey}
           onChange={handleControlChange}
-          placeholder="існуючий вікдритий ключ шифрування (опціонально)"
+          placeholder="public key (optional)"
         />
         <Form.Span FontSize="0.875rem">
-          * залиште поле порожнім для генерації відкритого та закритого ключа
-          шифрування
+          * leave this field empty to generate new public and secret keys
         </Form.Span>
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Початкове кодування тексту</Form.Span>
+          <Form.Span>Encode from</Form.Span>
           <Form.Select
             name="encodingFrom"
             value={controls.encodingFrom}
@@ -71,7 +70,7 @@ const EncryptRsaForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Остаточне кодування шифротекста</Form.Span>
+          <Form.Span>Encode to</Form.Span>
           <Form.Select
             name="encodingTo"
             value={controls.encodingTo}
@@ -88,7 +87,7 @@ const EncryptRsaForm = ({ outputData, infoData }) => {
       </Form.Row>
       <Form.Row Margin="20px auto">
         <Form.Button type="submit" primary>
-          шифрувати
+          encrypt
         </Form.Button>
       </Form.Row>
     </Form>

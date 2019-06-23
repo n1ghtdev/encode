@@ -11,12 +11,12 @@ const DecryptOutput = props => {
         <div style={{ position: 'absolute' }}>LOADING</div>
       )}
       <Form.Label>
-        <Form.Span>Розшифрований текст</Form.Span>
+        <Form.Span>Decrypted text</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="output-text"
-          value={outputData.decrypted.text || 'розшифрований текст....'}
+          value={outputData.decrypted.text || 'decrypted text output....'}
           readOnly
         />
       </Form.Label>

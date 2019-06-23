@@ -1,12 +1,11 @@
 import Algorithm from '../models/algorithmModel';
 import Encoding from '../models/encodingModel';
 
-const getData = async (req, res) => {
+const getData = (req, res) => {
   try {
-    const [algorithmList, encodingList] = await Promise.all([
-      Algorithm.getAlgorithmList(),
-      Encoding.getEncodingList(),
-    ]);
+    const algorithmList = Algorithm.getAlgorithmList();
+    const encodingList = Encoding.getEncodingList();
+
     res.status(200).json({ algorithmList, encodingList });
   } catch (error) {
     res.status(400).json({ message: error.message });

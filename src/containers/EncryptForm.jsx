@@ -37,20 +37,20 @@ const EncryptForm = ({ outputData, infoData }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Label>
-        <Form.Span>Текст для шифрування</Form.Span>
+        <Form.Span>Text</Form.Span>
         <Form.Textarea
           rows="15"
           type="input"
           name="text"
           value={controls.text}
           onChange={handleControlChange}
-          placeholder="текстова інформація..."
+          placeholder="text information..."
           required
         />
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Алгоритм шифрування</Form.Span>
+          <Form.Span>Encryption algorithm</Form.Span>
           <Form.Select
             name="algorithm"
             value={controls.algorithm.name}
@@ -65,7 +65,7 @@ const EncryptForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Режим шифрування</Form.Span>
+          <Form.Span>Encryption mode</Form.Span>
           <Form.Select
             name="algorithmMode"
             value={controls.algorithmMode}
@@ -73,7 +73,7 @@ const EncryptForm = ({ outputData, infoData }) => {
             required
           >
             <Form.Option key={-1} value="" disabled>
-              Обрати режим
+              Choose mode
             </Form.Option>
             {infoData.data.algorithmList
               .find(a => a.id === Number(controls.algorithm))
@@ -87,19 +87,19 @@ const EncryptForm = ({ outputData, infoData }) => {
       </Form.Row>
       <Form.Label>
         <Form.Span>
-          Ключ шифрування (залешіть пустим для генерації випадкового ключа)
+          Encryption key (leave it empty to generate random key)
         </Form.Span>
         <Form.Input
           type="input"
           name="key"
           value={controls.key}
           onChange={handleControlChange}
-          placeholder="Ключ шифрування..."
+          placeholder="Encryption key..."
         />
       </Form.Label>
       <Form.Row>
         <Form.Label Width="49%">
-          <Form.Span>Початкове кодування тексту</Form.Span>
+          <Form.Span>Encode from</Form.Span>
           <Form.Select
             name="encodingFrom"
             value={controls.encodingFrom}
@@ -114,7 +114,7 @@ const EncryptForm = ({ outputData, infoData }) => {
           </Form.Select>
         </Form.Label>
         <Form.Label Width="49%">
-          <Form.Span>Остаточне кодування шифротекста</Form.Span>
+          <Form.Span>Encode to</Form.Span>
           <Form.Select
             name="encodingTo"
             value={controls.encodingTo}
@@ -131,7 +131,7 @@ const EncryptForm = ({ outputData, infoData }) => {
       </Form.Row>
       <Form.Row Margin="20px auto">
         <Form.Button type="submit" primary>
-          шифрувати
+          encrypt
         </Form.Button>
       </Form.Row>
     </Form>

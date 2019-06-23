@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development nodemon --exec babel-node server"
+    "clean": "rimraf build",
+    "start": "cross-env NODE_ENV=development nodemon --exec babel-node server",
+    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js"
   },
   "author": "Nickew",
   "license": "ISC",
@@ -26,7 +28,6 @@
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
@@ -35,17 +36,19 @@
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-decorators": "^7.2.3",
+    "@babel/plugin-transform-react-constant-elements": "^7.2.0",
+    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-plugin-dynamic-import-node": "^2.1.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "compression-webpack-plugin": "^2.0.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
@@ -68,6 +71,7 @@
     "terser-webpack-plugin": "^1.2.3",
     "url-loader": "^1.1.1",
     "webpack": "^4.20.2",
+    "webpack-cli": "^3.3.5",
     "webpack-dev-middleware": "^3.5.0",
     "webpack-hot-middleware": "^2.24.3"
   }
