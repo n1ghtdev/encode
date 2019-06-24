@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "utf-8",
+    "title": "UTF-8"
+  },
+  {
+    "id": 1,
+    "name": "base64",
+    "title": "Base64"
+  },
+  {
+    "id": 2,
+    "name": "hex",
+    "title": "HEX"
+  }
+]
