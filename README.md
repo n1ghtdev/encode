@@ -1,13 +1,16 @@
 # Encode Web App
-Encrypt and decrypt text data with symmetric algorithms (AES, Blowfish...) and encodings (base64, hex...).
+
+Encrypt and decrypt text information with symmetric algorithms (AES,
+Blowfish...) and asymmetric RSA algorithm with key size of 2048 bits.
 
 ##### Tools:
+
 - React 16.8 (with hooks)
 - React-Router v5
 - styled-components v4
-- Express
-- postgresql (with pgAdmin v4)
+- Node.js/Express
 - webpack, babel, eslint
+
 ---
-*todo
-license*
+
+_todo license_

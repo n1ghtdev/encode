@@ -1,17 +1,18 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import path, { resolve } from 'path';
+import path from 'path';
+// import path, { resolve } from 'path';
 // import cookieParser from 'cookie-parser';
 // import cors from 'cors';
 // import jwtVerifier from 'express-jwt';
-import setup from './middlewares/setupMiddleware';
+// import setup from './middlewares/setupMiddleware';
 import { router as routes } from './routes';
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-// app.use('/', express.static(path.join(__dirname, '/public')));
+app.use('/', express.static(path.join(__dirname, '/public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,10 +34,10 @@ app.use(routes);
 //     console.log('cool');
 //   },
 // );
-setup(app, {
-  outputPath: resolve(process.cwd(), 'build'),
-  publicPath: '/',
-});
+// setup(app, {
+//   outputPath: resolve(process.cwd(), 'build'),
+//   publicPath: '/',
+// });
 
 app.get('*', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '/public') });

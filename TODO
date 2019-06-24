@@ -1,9 +1,11 @@
+Sunday, June 23, 2019:
+  ☐ create separate branch for heroku deployment
+
 Monday, May 27, 2019:
-  ☐ add information to About page
-  ☐ add MainPage
-    ☐ contains Welcome message and quick How To
+  ✔ add information to About page @done(19-06-23 21:42)
+  ✔ add MainPage @done(19-06-23 21:42)
   ☐ clickable Logotype
-  ☐ fix rc4, des (invalid iv length)
+  ✘ fix rc4, des (invalid iv length) @cancelled(19-06-23 21:43)
 
 Wednesday, May 22, 2019:
   ✘ fix getUserByEmail to work for signup and login methods @cancelled(19-05-27 17:04)
@@ -13,8 +15,8 @@ Wednesday, May 22, 2019:
     ✘ create DB table @cancelled(19-05-27 17:05)
   
 Thursday, May 2, 2019:
-  ☐ backend
-    ☐ auth integrated with postgresql
+  ✔ backend @done(19-06-23 21:43)
+    ✘ auth integrated with postgresql @cancelled(19-06-23 21:43)
     ✔ refactor actions @done(19-05-09 21:37)
     ✘ try to implement algorithms and encodings from scratch @cancelled(19-05-27 17:05)
     ✔ connect pgsql db @done(19-05-09 21:37)
