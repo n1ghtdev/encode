@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { device } from '../breakpoints';
 
 const Aside = styled.aside`
   position: fixed;
@@ -11,6 +12,10 @@ const Aside = styled.aside`
   max-width: 240px;
   min-height: 100vh;
   ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
+
+  @media ${device.mobile} {
+    display: none;
+  }
 `;
 
 Aside.propTypes = {

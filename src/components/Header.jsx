@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { device } from '../breakpoints';
 
 const Wrapper = styled.header`
   width: 100%;
@@ -9,12 +10,14 @@ const Wrapper = styled.header`
   justify-content: center;
   align-items: center;
   ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
+
+  @media ${device.mobile} {
+    display: none;
+  }
 `;
 
 const Header = ({ children, bgColor }) => (
-  <Wrapper bgColor={bgColor}>
-    {children}
-  </Wrapper>
+  <Wrapper bgColor={bgColor}>{children}</Wrapper>
 );
 
 Header.propTypes = {

@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 import Button from './Button';
 import Span from './Span';
 
+import { device } from '../breakpoints';
+
 const fieldStyles = css`
   border: 2px solid #cdd9ed;
   width: 100%;
@@ -34,6 +36,10 @@ const Row = styled.div`
   justify-content: ${({ justifyContent }) => justifyContent || 'space-between'};
   margin: ${({ Margin }) => Margin};
   align-items: ${({ alignItems }) => alignItems || 'flex-end'};
+
+  @media ${device.mobile} {
+    flex-flow: column nowrap;
+  }
 `;
 const Label = styled.label`
   display: block;
@@ -44,6 +50,10 @@ const Label = styled.label`
     `
     width: ${Width};
   `}
+
+  @media ${device.mobile} {
+    width: 100%;
+  }
 `;
 const StyledSpan = styled(Span)`
   display: block;
@@ -104,6 +114,10 @@ const LabeledInputFile = styled.label`
   &:hover {
     border-color: #23c4f8;
     cursor: pointer;
+  }
+  @media ${device.mobile} {
+    margin-right: 0;
+    margin-bottom: 20px;
   }
 `;
 

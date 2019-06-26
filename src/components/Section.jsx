@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { device } from '../breakpoints';
 
 const Section = styled.section`
   display: block;
   height: ${({ Height }) => Height};
   color: ${({ Color }) => Color};
-  ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
+  background-color: ${({ bgColor }) => bgColor};
   border-radius: 5px;
   margin: 20px 20px 20px 260px;
   background-repeat: no-repeat;
-  padding: ${({ Padding }) => Padding};
+  padding: 25px 15px;
 
-  /* fixed sidebar offset */
+  @media ${device.mobile} {
+    margin: 5px;
+    padding: 5px;
+  }
 `;
 
 Section.propTypes = {
@@ -19,13 +23,13 @@ Section.propTypes = {
   Height: PropTypes.string,
   bgColor: PropTypes.string,
   bgImage: PropTypes.string,
-  Padding: PropTypes.string,
   Color: PropTypes.string,
   Width: PropTypes.string,
 };
 
 Section.defaultProps = {
   Color: 'inherit',
+  bgColor: '#fff',
 };
 
 export default Section;

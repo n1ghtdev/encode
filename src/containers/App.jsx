@@ -7,14 +7,13 @@ import EncryptPage from '../pages/EncryptPage';
 import EncryptRsaPage from '../pages/EncryptRsaPage';
 import DecryptPage from '../pages/DecryptPage';
 import DecryptRsaPage from '../pages/DecryptRsaPage';
-import DashboardPage from '../pages/DashboardPage';
 
 import Section from '../components/Section';
 
-import PrivateRoute from './PrivateRoute';
 import SidebarContainer from './SidebarContainer';
+import MobileMenu from './MobileMenu';
+
 import StoreContext from '../store/StoreContext';
-import AuthProvider from '../store/auth/AuthProvider';
 import { getRequest } from '../utils/makeRequest';
 
 toast.configure();
@@ -37,10 +36,11 @@ const App = () => {
   }, []);
 
   return (
-    <AuthProvider>
+    <React.Fragment>
       <ToastContainer />
       <SidebarContainer />
-      <Section Padding="25px 15px" bgColor="#F1F7FF">
+      <MobileMenu />
+      <Section bgColor="#F1F7FF">
         <Switch>
           <Route exact path="/" component={EncryptPage} />
           <Route exact path="/encrypt" component={EncryptPage} />
@@ -48,10 +48,9 @@ const App = () => {
           <Route exact path="/rsa-encrypt" component={EncryptRsaPage} />
           <Route exact path="/rsa-decrypt" component={DecryptRsaPage} />
           <Route exact path="/about" component={AboutPage} />
-          <PrivateRoute exact path="/dashboard" component={DashboardPage} />
         </Switch>
       </Section>
-    </AuthProvider>
+    </React.Fragment>
   );
 };
 
