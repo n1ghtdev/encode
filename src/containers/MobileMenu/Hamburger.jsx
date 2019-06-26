@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
+import { device } from '../../breakpoints';
+
 const Box = styled.div`
-  display: inline-block;
+  display: none;
   position: relative;
   width: 35px;
   height: 25px;
   z-index: 2;
+
+  @media ${device.mobile} {
+    display: inline-block;
+  }
 `;
 
 const Inner = styled.div`
