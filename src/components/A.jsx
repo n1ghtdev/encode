@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import { ButtonPrimary } from './ButtonStyles';
+import styled from 'styled-components';
 
 const Link = styled.a`
   text-decoration: ${({ textDecoration }) => textDecoration};
@@ -10,13 +9,6 @@ const Link = styled.a`
     typeof fontSize === 'string' ? fontSize : `${fontSize}px`};
   font-style: ${({ fontStyle }) => fontStyle};
   color: ${({ Color }) => Color};
-
-  ${({ primary }) =>
-    primary &&
-    css`
-      padding: 10px 30px;
-      ${ButtonPrimary}
-    `}
 `;
 
 const A = props => (
@@ -32,7 +24,6 @@ A.propTypes = {
   fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fontStyle: PropTypes.string,
   Color: PropTypes.string,
-  primary: PropTypes.bool,
 };
 
 A.defaultProps = {

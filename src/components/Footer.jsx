@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { device } from '../breakpoints';
 
 const Footer = styled.footer`
-  padding: 15px;
+  width: 100%;
+  padding: 20px 0;
   text-align: center;
-  margin-top: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 
   @media ${device.mobile} {
     display: none;

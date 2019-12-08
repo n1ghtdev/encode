@@ -36,11 +36,6 @@ module.exports = options => ({
         use: 'file-loader',
       },
       {
-        test: /\.json$/,
-        exclude: /node_modules/,
-        loader: 'json-loader',
-      },
-      {
         test: /\.svg$/,
         exclude: /node_modules/,
         use: {
