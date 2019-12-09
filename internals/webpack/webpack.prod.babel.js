@@ -3,6 +3,8 @@ const { HashedModuleIdsPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -17,18 +19,22 @@ module.exports = require('./webpack.base.babel')({
       new TerserPlugin({
         terserOptions: {
           warnings: false,
-          compress: {
-            comparisons: false,
+          parse: {
+            ecma: 8,
           },
-          parse: {},
+          compress: {
+            ecma: 5,
+            warnings: false,
+            comparisons: false,
+            inline: 2,
+          },
           mangle: true,
           output: {
+            ecma: 5,
             comments: false,
             ascii_only: true,
           },
         },
-        parallel: true,
-        cache: true,
         sourceMap: true,
       }),
     ],
@@ -36,26 +42,14 @@ module.exports = require('./webpack.base.babel')({
     sideEffects: true,
     concatenateModules: true,
     splitChunks: {
-      chunks: 'initial',
-      maxInitialRequests: 10,
-      minSize: 0,
-      cacheGroups: {
-        react: {
-          test: /react/,
-          name: 'react',
-          chunks: 'all',
-          enforce: true,
-        },
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          priority: -10,
-        },
-      },
+      chunks: 'all',
     },
-    runtimeChunk: false,
+    runtimeChunk: {
+      name: entrypoint => `runtime-${entrypoint.name}`,
+    },
   },
   plugins: [
+    new AntdDayjsWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       minify: {
@@ -71,6 +65,10 @@ module.exports = require('./webpack.base.babel')({
         minifyURLs: true,
       },
       inject: true,
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].chunk.css',
     }),
     new CompressionPlugin({
       algorithm: 'gzip',

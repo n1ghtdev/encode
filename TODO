@@ -1,4 +1,4 @@
 General:
-  ☐ update webpack config
+  ✔ update webpack config @done(19-12-09 12:59)
   ☐ add ui notifications
   ☐ move back-end logic to front-end
