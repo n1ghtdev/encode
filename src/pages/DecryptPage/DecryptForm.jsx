@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import { Form, Input, Select, Button, Row, Col } from 'antd';
 import useCryptoData from '../../hooks/useCryptoData';
 import UploadJson from '../../components/UploadJson';
-import useSymmetricDecryption from '../../hooks/useSymmetricDecryption';
+import useFetch from '../../hooks/useFetch';
+import { setDecryptedData } from '../../modules/actions';
+
+import { API_DECRYPT } from '../../api';
 
 const DecryptForm = ({ form }) => {
   const { encryptions, encodings } = useCryptoData();
-  const { loading, decrypt } = useSymmetricDecryption();
+  const { isLoading, makePostRequest } = useFetch(setDecryptedData);
 
   const handleSubmit = e => {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        decrypt({
+        makePostRequest(API_DECRYPT, {
           text: values.text,
           algorithm: {
             ...encryptions.find(enc => enc.id === Number(values.algorithm)),
@@ -164,7 +167,7 @@ const DecryptForm = ({ form }) => {
               htmlType="submit"
               shape="round"
               size="large"
-              loading={loading}
+              loading={isLoading}
               block
             >
               DECRYPT

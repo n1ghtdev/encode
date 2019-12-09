@@ -5,17 +5,20 @@ import { Form, Input, Select, Button, Row, Col } from 'antd';
 import UploadJson from '../../components/UploadJson';
 
 import useCryptoData from '../../hooks/useCryptoData';
-import useRSADecryption from '../../hooks/useRSADecryption';
+import useFetch from '../../hooks/useFetch';
+import { setRsaDecryptedData } from '../../modules/actions';
+
+import { API_RSA_DECRYPT } from '../../api';
 
 const DecryptRsaForm = ({ form }) => {
   const { encodings } = useCryptoData();
-  const { loading, decrypt } = useRSADecryption();
+  const { isLoading, makePostRequest } = useFetch(setRsaDecryptedData);
 
   const handleSubmit = e => {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        decrypt({
+        makePostRequest(API_RSA_DECRYPT, {
           text: values.decrRsaText,
           privateKey: values.decrRsaPrivKey,
           decodingFrom: values.decodingFrom,
@@ -116,7 +119,7 @@ const DecryptRsaForm = ({ form }) => {
               htmlType="submit"
               shape="round"
               size="large"
-              loading={loading}
+              loading={isLoading}
               block
             >
               DECRYPT

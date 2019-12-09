@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import { Form, Input, Select, Button } from 'antd';
 
 import useCryptoData from '../../hooks/useCryptoData';
-import useRSAEncryption from '../../hooks/useRSAEncryption';
+import useFetch from '../../hooks/useFetch';
+import { setRsaEncryptedData } from '../../modules/actions';
+
+import { API_RSA_ENCRYPT } from '../../api';
 
 const EncryptRsaForm = ({ form }) => {
   const { encodings } = useCryptoData();
-  const { loading, encrypt } = useRSAEncryption();
+  const { isLoading, makePostRequest } = useFetch(setRsaEncryptedData);
 
   const handleSubmit = e => {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        encrypt({
+        makePostRequest(API_RSA_ENCRYPT, {
           text: values.text,
           publicKey: values.publKey,
           encodingFrom: values.encodingFrom,
@@ -105,7 +108,7 @@ const EncryptRsaForm = ({ form }) => {
           shape="round"
           size="large"
           block
-          loading={loading}
+          loading={isLoading}
         >
           ENCRYPT
         </Button>
