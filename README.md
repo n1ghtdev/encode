@@ -1,16 +1,18 @@
 # Encode Web App
 
-Encrypt and decrypt text information with symmetric algorithms (AES,
-Blowfish...) and asymmetric RSA algorithm with key size of 2048 bits.
+Provides simple responsive interface to encrypt and decrypt your text data with
+symmetric and asymmetric (RSA) algorithms.
+
+Encode App uses nodejs crypto lib on back-end, it means your text data sends to
+back-end in non-crypted form. **Not recommended to use this app for encrypting
+important data.**
+
+It is just a practice project to improve my experince with development tools, in
+a future I will remove back-end implementation and do encryption stuff on a
+front-end.
 
 ##### Tools:
 
-- React 16.8 (with hooks)
+- React 16.8
 - React-Router v5
-- styled-components v4
 - Node.js/Express
-- webpack, babel, eslint
-
----
-
-_todo license_

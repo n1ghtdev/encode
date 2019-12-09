@@ -1,20 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
-import { H1 } from '../components/Headings';
-import A from '../components/A';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { Layout, Menu, Button, Typography } from 'antd';
 
-const { Sider } = Layout;
+const { Sider, Header, Content } = Layout;
 
 const SidebarContainer = () => (
-  <Sider width="250px" style={{ position: 'relative' }}>
-    <Header>
-      <H1 lineHeight="1" FontFamily="'Comfortaa', cursive" Color="#fff">
-        encode
-      </H1>
-    </Header>
+  <Sider
+    breakpoint="sm"
+    width="250px"
+    style={{ zIndex: '999' }}
+    collapsedWidth="0"
+  >
+    <Typography.Title
+      level={1}
+      style={{
+        fontFamily: 'Comfortaa, cursive',
+        color: '#fff',
+        lineHeight: '1',
+        marginTop: '15px',
+        textAlign: 'center',
+      }}
+    >
+      encode
+    </Typography.Title>
     <Menu mode="inline" theme="dark">
       <Menu.Item style={{ textTransform: 'uppercase' }}>
         <Link to="/encrypt">symmetric encrypt</Link>
@@ -32,16 +40,6 @@ const SidebarContainer = () => (
         <Link to="/about">about</Link>
       </Menu.Item>
     </Menu>
-    <Footer style={{ textAlign: 'center', marginTop: 'auto' }}>
-      <A
-        Color="hsl(220, 50%, 25%)"
-        href="https://github.com/n1ghtdev/"
-        target="_blank"
-        rel="noopener"
-      >
-        github.com/n1ghtdev
-      </A>
-    </Footer>
   </Sider>
 );
 
