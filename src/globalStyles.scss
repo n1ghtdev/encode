@@ -13,8 +13,7 @@
 }
 
 html {
-  font-family: 'Ubuntu', sans-serif;
-  line-height: 1.15;
+  font-family: 'Roboto', sans-serif;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -34,11 +33,10 @@ section {
 
 body {
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  font-weight: 400;
-  line-height: 1.15;
-  background-color: #f8fbff;
+  background-color: #121212;
+  color: #fff;
 }
 
 [tabindex='-1']:focus {
@@ -125,6 +123,7 @@ sup {
 
 a {
   background-color: transparent;
+  color: #fff;
 }
 
 pre {
