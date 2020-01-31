@@ -74,7 +74,9 @@ const DecryptForm = ({ form }) => {
           </Form.Select>
         )}
         {form.getFieldDecorator('algorithmMode', {
-          rules: [{ required: true, message: 'Select one of algorithm modes' }],
+          rules: [
+            { required: true, message: 'Select encryption algorithm mode' },
+          ],
         })(
           <Form.Select placeholder="Select encryption mode">
             {form.getFieldValue('algorithm') &&
@@ -82,7 +84,7 @@ const DecryptForm = ({ form }) => {
                 .find(a => a.id === Number(form.getFieldValue('algorithm')))
                 .modes.map(mode => (
                   <Select.Option key={mode.id} value={mode.name}>
-                    {mode.name}
+                    {mode.title}
                   </Select.Option>
                 ))}
           </Form.Select>
@@ -113,10 +115,10 @@ const DecryptForm = ({ form }) => {
         )}
       </Form.Group>
       <Row>
-        <Col sm={{ span: 16, offset: 0 }}>
+        <Col sm={{ span: 10, offset: 0 }}>
           <UploadJson updateInitialState={updateFields} />
         </Col>
-        <Col sm={{ span: 8, offset: 0 }}>
+        <Col sm={{ span: 10, offset: 4 }}>
           <Form.Button type="submit" loading={isLoading}>
             DECRYPT
           </Form.Button>

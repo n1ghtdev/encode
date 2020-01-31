@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Upload, Button } from 'antd';
+import { jsx, css } from '@emotion/core';
 
 const UploadJson = ({ updateInitialState }) => {
   const [json, setJson] = React.useState(null);
@@ -20,19 +22,22 @@ const UploadJson = ({ updateInitialState }) => {
   };
 
   return (
-    <Form.Item>
-      <Upload
-        fileList={false}
-        accept=".json"
-        method="get"
-        name="file"
-        beforeUpload={handleUpload}
-      >
-        <Button block shape="round" size="large">
-          Upload JSON
-        </Button>
-      </Upload>
-    </Form.Item>
+    <Upload
+      fileList={false}
+      accept=".json"
+      method="get"
+      name="file"
+      beforeUpload={handleUpload}
+      css={css`
+        .ant-upload-select {
+          display: block;
+        }
+      `}
+    >
+      <Button block shape="round" size="large">
+        Upload JSON
+      </Button>
+    </Upload>
   );
 };
 

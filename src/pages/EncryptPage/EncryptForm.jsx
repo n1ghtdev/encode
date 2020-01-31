@@ -60,9 +60,11 @@ const EncryptForm = ({ form }) => {
           </Form.Select>
         )}
         {form.getFieldDecorator('algorithmMode', {
-          rules: [{ required: true, message: 'Select one of algorithm modes' }],
+          rules: [
+            { required: true, message: 'Select encryption algorithm mode' },
+          ],
         })(
-          <Form.Select placeholder="Select algorithm mode">
+          <Form.Select placeholder="Select encryption mode">
             {form.getFieldValue('algorithm') &&
               encryptions
                 .find(a => a.id === Number(form.getFieldValue('algorithm')))

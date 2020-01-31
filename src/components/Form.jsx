@@ -49,7 +49,13 @@ const formButtonStyles = theme => css`
 `;
 
 const StyledForm = props => (
-  <Form layout="vertical" {...props}>
+  <Form
+    layout="vertical"
+    {...props}
+    css={css`
+      height: 100%;
+    `}
+  >
     {props.children}
   </Form>
 );
@@ -84,16 +90,17 @@ const StyledSelect = props => (
   </Select>
 );
 
-const StyledButton = ({ type, children, loading }) => (
+const StyledButton = props => (
   <Button
-    htmlType={type}
+    htmlType={props.type}
     shape="round"
     size="large"
-    loading={loading}
+    loading={props.loading}
     block
     css={formButtonStyles}
+    {...props}
   >
-    {children}
+    {props.children}
   </Button>
 );
 

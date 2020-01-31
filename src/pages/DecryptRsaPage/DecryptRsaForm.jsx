@@ -77,10 +77,10 @@ const DecryptRsaForm = ({ form }) => {
         )}
       </Form.Group>
       <Row>
-        <Col sm={{ span: 16, offset: 0 }}>
+        <Col sm={{ span: 10, offset: 0 }}>
           <UploadJson updateInitialState={updateFields} />
         </Col>
-        <Col sm={{ span: 8, offset: 0 }}>
+        <Col sm={{ span: 10, offset: 4 }}>
           <Form.Button type="submit" loading={isLoading}>
             DECRYPT
           </Form.Button>
