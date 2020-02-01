@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { jsx, css } from '@emotion/core';
 
 const Menu = ({ children }) => (
   <ul
     css={css`
       list-style-type: none;
-      display: inline-flex;
+      width: 100%;
     `}
   >
     {children}
@@ -18,25 +18,38 @@ const Menu = ({ children }) => (
 const MenuItem = ({ children, to }) => (
   <li
     css={theme => css`
-      margin-right: 20px;
-      padding: 10px 20px;
-      background-color: ${theme.primary};
-      border-radius: 30px;
+      width: 100%;
 
       &:last-child {
         margin-right: 0;
       }
     `}
   >
-    <Link
+    <NavLink
       to={to}
-      css={css`
+      activeClassName="active"
+      css={theme => css`
+        display: block;
         font-size: 14px;
-        text-transform: uppercase;
+        text-transform: capitalize;
+        font-weight: bold;
+        padding: 10px 20px;
+        transition: background-color 250ms;
+        color: ${theme.text};
+        border-bottom: 1px solid ${theme.brightHover};
+
+        &:hover {
+          background-color: ${theme.brightHover};
+          color: ${theme.text};
+        }
+        &.active {
+          background-color: ${theme.primary};
+          color: #fff;
+        }
       `}
     >
       {children}
-    </Link>
+    </NavLink>
   </li>
 );
 

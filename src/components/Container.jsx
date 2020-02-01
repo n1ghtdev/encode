@@ -6,7 +6,7 @@ import { jsx, css } from '@emotion/core';
 const Container = ({ children }) => (
   <div
     css={css`
-      max-width: 1170px;
+      max-width: 1400px;
       width: 100%;
       margin: 0 auto;
       padding-left: 15px;

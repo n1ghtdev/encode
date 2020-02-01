@@ -17,7 +17,7 @@ const formGroupStyles = css`
 `;
 
 const formInputStyles = theme => css`
-  background-color: ${theme.contrast};
+  background-color: ${theme.dark};
   color: #fff;
   border: 0;
   &:hover,
@@ -30,7 +30,7 @@ const formSelectStyles = theme => css`
   color: #fff;
   min-width: 50%;
   .ant-select-selection {
-    background-color: ${theme.contrast};
+    background-color: ${theme.dark};
     border: none;
     &:hover,
     &:focus {
