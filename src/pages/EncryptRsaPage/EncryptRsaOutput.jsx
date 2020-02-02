@@ -15,7 +15,8 @@ const EncryptRsaOutput = () => {
         <Form.TextArea
           rows="10"
           name="output-enctext"
-          value={rsaEncrypted.text || 'encrypted text output...'}
+          value={rsaEncrypted && rsaEncrypted.text}
+          placeholder="encrypted text"
           readOnly
         />
       </Form.Item>
@@ -23,7 +24,8 @@ const EncryptRsaOutput = () => {
         <Form.TextArea
           rows="3"
           name="output-pubkey"
-          value={rsaEncrypted.publicKey || 'public encryption key...'}
+          value={rsaEncrypted && rsaEncrypted.publicKey}
+          placeholder="public key"
           readOnly
         />
       </Form.Item>
@@ -31,17 +33,20 @@ const EncryptRsaOutput = () => {
         <Form.TextArea
           rows="3"
           name="output-privkey"
-          value={rsaEncrypted.privateKey || 'secret encryption key...'}
+          value={rsaEncrypted && rsaEncrypted.privateKey}
+          placeholder="private key"
           readOnly
         />
       </Form.Item>
-      <Form.Button
-        href={jsonOutput}
-        icon="download"
-        download="rsa-encrypted-data.json"
-      >
-        Save to JSON
-      </Form.Button>
+      <Form.ItemButton>
+        <Form.Button
+          href={jsonOutput}
+          icon="download"
+          download="rsa-encrypted-data.json"
+        >
+          Save to JSON
+        </Form.Button>
+      </Form.ItemButton>
     </Form>
   );
 };

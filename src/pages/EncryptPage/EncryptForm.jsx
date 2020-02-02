@@ -6,7 +6,6 @@ import Form from '../../components/Form';
 import useCryptoData from '../../hooks/useCryptoData';
 import useFetch from '../../hooks/useFetch';
 import { setEncryptedData } from '../../modules/actions';
-
 import { API_ENCRYPT } from '../../api';
 
 const EncryptForm = ({ form }) => {
@@ -30,11 +29,12 @@ const EncryptForm = ({ form }) => {
       }
     });
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Item>
         {form.getFieldDecorator('text', {
-          rules: [{ required: true, message: 'Put any text data' }],
+          rules: [{ required: true, message: 'Text message is required.' }],
         })(<Form.TextArea rows="10" placeholder="text to encrypt" />)}
       </Form.Item>
       <Form.Item>
@@ -43,58 +43,66 @@ const EncryptForm = ({ form }) => {
         )}
       </Form.Item>
       <Form.Group>
-        {form.getFieldDecorator('algorithm', {
-          rules: [
-            {
-              required: true,
-              message: 'Select one of encryption algorithms',
-            },
-          ],
-        })(
-          <Form.Select placeholder="Select algorithm">
-            {encryptions.map(el => (
-              <Select.Option key={el.id} value={el.id}>
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('algorithm', {
+            rules: [
+              {
+                required: true,
+                message: 'Encryption algorithm is required.',
+              },
+            ],
+          })(
+            <Form.Select placeholder="Select algorithm">
+              {encryptions.map(el => (
+                <Select.Option key={el.id} value={el.id}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('algorithmMode', {
+            rules: [{ required: true, message: 'Algorithm mode is required.' }],
+          })(
+            <Form.Select placeholder="Select encryption mode">
+              {form.getFieldValue('algorithm') &&
+                encryptions
+                  .find(a => a.id === Number(form.getFieldValue('algorithm')))
+                  .modes.map(mode => (
+                    <Select.Option key={mode.id} value={mode.name}>
+                      {mode.title}
+                    </Select.Option>
+                  ))}
+            </Form.Select>
+          )}
+        </Form.Item>
+      </Form.Group>
+      <Form.Group>
+        <Form.Item style={{ width: '50%' }}>
+          <Form.Select defaultValue={encodings[0].name}>
+            {encodings.map(el => (
+              <Select.Option key={el.id} value={el.name}>
                 {el.title}
               </Select.Option>
             ))}
           </Form.Select>
-        )}
-        {form.getFieldDecorator('algorithmMode', {
-          rules: [
-            { required: true, message: 'Select encryption algorithm mode' },
-          ],
-        })(
-          <Form.Select placeholder="Select encryption mode">
-            {form.getFieldValue('algorithm') &&
-              encryptions
-                .find(a => a.id === Number(form.getFieldValue('algorithm')))
-                .modes.map(mode => (
-                  <Select.Option key={mode.id} value={mode.name}>
-                    {mode.title}
-                  </Select.Option>
-                ))}
+        </Form.Item>
+        <Form.Item style={{ width: '50%' }}>
+          <Form.Select defaultValue={encodings[1].name}>
+            {encodings.slice(1, 3).map(el => (
+              <Select.Option key={el.id} value={el.name}>
+                {el.title}
+              </Select.Option>
+            ))}
           </Form.Select>
-        )}
+        </Form.Item>
       </Form.Group>
-      <Form.Group>
-        <Form.Select defaultValue={encodings[0].name}>
-          {encodings.map(el => (
-            <Select.Option key={el.id} value={el.name}>
-              {el.title}
-            </Select.Option>
-          ))}
-        </Form.Select>
-        <Form.Select defaultValue={encodings[1].name}>
-          {encodings.slice(1, 3).map(el => (
-            <Select.Option key={el.id} value={el.name}>
-              {el.title}
-            </Select.Option>
-          ))}
-        </Form.Select>
-      </Form.Group>
-      <Form.Button type="submit" loading={isLoading}>
-        ENCRYPT
-      </Form.Button>
+      <Form.ItemButton>
+        <Form.Button type="submit" loading={isLoading}>
+          ENCRYPT
+        </Form.Button>
+      </Form.ItemButton>
     </Form>
   );
 };

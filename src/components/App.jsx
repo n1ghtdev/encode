@@ -18,18 +18,26 @@ import Sidebar from './Sidebar';
 
 import { StoreProvider } from '../modules/GlobalStore';
 
+const Trigger = props => <button {...props}>OPEN</button>;
+
 const App = () => {
   const { pathname } = useLocation();
 
   return (
     <Layout
-      css={theme => ({ backgroundColor: theme.background, height: '100vh' })}
+      css={theme => ({ backgroundColor: theme.background, minHeight: '100vh' })}
     >
       <Layout.Sider
         width="250px"
-        breakpoint="sm"
-        collapseWidth="0"
+        breakpoint="lg"
+        collapsedWidth="0"
         css={theme => ({ backgroundColor: theme.bright })}
+        zeroWidthTriggerStyle={{
+          top: '5px',
+          position: 'fixed',
+          left: '0',
+          backgroundColor: '#121212',
+        }}
       >
         <Menu>
           <Menu.Item to="/encrypt">symmetric encryption</Menu.Item>

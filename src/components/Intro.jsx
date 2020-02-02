@@ -47,6 +47,10 @@ const Intro = () => {
           border-radius: 5px;
           padding: 20px 15px;
           box-shadow: 3px 3px 4px ${theme.dark};
+
+          @media screen and (max-width: 999px) {
+            display: none;
+          }
         `
       }
     >

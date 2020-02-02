@@ -26,13 +26,15 @@ const EncryptOutput = () => {
           readOnly
         />
       </Form.Item>
-      <Form.Button
-        href={jsonOutput}
-        icon="download"
-        download="encrypted-data.json"
-      >
-        Save to JSON
-      </Form.Button>
+      <Form.ItemButton>
+        <Form.Button
+          href={jsonOutput}
+          icon="download"
+          download="encrypted-data.json"
+        >
+          Save to JSON
+        </Form.Button>
+      </Form.ItemButton>
     </Form>
   );
 };

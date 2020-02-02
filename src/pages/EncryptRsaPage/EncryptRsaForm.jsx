@@ -31,41 +31,47 @@ const EncryptRsaForm = ({ form }) => {
     <Form onSubmit={handleSubmit}>
       <Form.Item>
         {form.getFieldDecorator('text', {
-          rules: [{ required: true, message: 'Put any text data' }],
+          rules: [{ required: true, message: 'Text message is required.' }],
         })(<Form.TextArea rows="10" placeholder="text information..." />)}
       </Form.Item>
-      <Form.Item extra="* leave this field empty to generate new public and secret keys">
+      <Form.Item>
         {form.getFieldDecorator('publKey')(
           <Form.TextArea rows="5" placeholder="public key (optional)" />
         )}
       </Form.Item>
       <Form.Group>
-        {form.getFieldDecorator('encodingFrom', {
-          initialValue: encodings[0].name,
-        })(
-          <Form.Select>
-            {encodings.map(el => (
-              <Select.Option key={el.id} value={el.name}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
-        {form.getFieldDecorator('encodingTo', {
-          initialValue: encodings[1].name,
-        })(
-          <Form.Select>
-            {encodings.slice(1, 3).map(el => (
-              <Select.Option key={el.id} value={el.name}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('encodingFrom', {
+            initialValue: encodings[0].name,
+          })(
+            <Form.Select>
+              {encodings.map(el => (
+                <Select.Option key={el.id} value={el.name}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('encodingTo', {
+            initialValue: encodings[1].name,
+          })(
+            <Form.Select>
+              {encodings.slice(1, 3).map(el => (
+                <Select.Option key={el.id} value={el.name}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
       </Form.Group>
-      <Form.Button type="submit" loading={isLoading}>
-        ENCRYPT
-      </Form.Button>
+      <Form.ItemButton>
+        <Form.Button type="submit" loading={isLoading}>
+          ENCRYPT
+        </Form.Button>
+      </Form.ItemButton>
     </Form>
   );
 };

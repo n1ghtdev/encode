@@ -39,48 +39,47 @@ const DecryptRsaForm = ({ form }) => {
     <Form onSubmit={handleSubmit}>
       <Form.Item>
         {form.getFieldDecorator('decrRsaText', {
-          rules: [{ required: true, message: 'Put encrypted text data' }],
-        })(
-          <Form.TextArea
-            rows="10"
-            placeholder="encrypted text information..."
-          />
-        )}
+          rules: [{ required: true, message: 'Text message is required.' }],
+        })(<Form.TextArea rows="10" placeholder="encrypted text..." />)}
       </Form.Item>
-      <Form.Item label="Secret key">
+      <Form.Item>
         {form.getFieldDecorator('decrRsaPrivKey', {
-          rules: [{ required: true, message: 'Paste RSA secret key' }],
-        })(<Form.TextArea rows="5" placeholder="secret encryption key" />)}
+          rules: [{ required: true, message: 'Secret key is required.' }],
+        })(<Form.TextArea rows="5" placeholder="secret key" />)}
       </Form.Item>
       <Form.Group>
-        {form.getFieldDecorator('decodingFrom', {
-          initialValue: encodings[1].name,
-        })(
-          <Form.Select>
-            {encodings.slice(1, 3).map(el => (
-              <Select.Option key={el.id} value={el.name}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
-        {form.getFieldDecorator('decodingTo', {
-          initialValue: encodings[0].name,
-        })(
-          <Form.Select>
-            {encodings.map(el => (
-              <Select.Option key={el.id} value={el.name}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('decodingFrom', {
+            initialValue: encodings[1].name,
+          })(
+            <Form.Select>
+              {encodings.slice(1, 3).map(el => (
+                <Select.Option key={el.id} value={el.name}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('decodingTo', {
+            initialValue: encodings[0].name,
+          })(
+            <Form.Select>
+              {encodings.map(el => (
+                <Select.Option key={el.id} value={el.name}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
       </Form.Group>
       <Row>
-        <Col sm={{ span: 10, offset: 0 }}>
+        <Col sm={{ span: 11, offset: 0 }} style={{ marginBottom: '20px' }}>
           <UploadJson updateInitialState={updateFields} />
         </Col>
-        <Col sm={{ span: 10, offset: 4 }}>
+        <Col sm={{ span: 11, offset: 2 }}>
           <Form.Button type="submit" loading={isLoading}>
             DECRYPT
           </Form.Button>

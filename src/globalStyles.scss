@@ -8,7 +8,7 @@
 }
 .ant-row {
   margin-left: 0!important;
-  margin-right: 0!important;
+  margin-right: 0;
 }
 .ant-form-item {
   margin-bottom: 4px;
@@ -43,6 +43,10 @@ body {
   font-size: 16px;
   background-color: #121212;
   color: #fff;
+}
+
+#app {
+  min-height: 100%;
 }
 
 [tabindex='-1']:focus {

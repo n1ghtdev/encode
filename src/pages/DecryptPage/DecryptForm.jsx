@@ -43,82 +43,81 @@ const DecryptForm = ({ form }) => {
     <Form onSubmit={handleSubmit}>
       <Form.Item>
         {form.getFieldDecorator('text', {
-          rules: [{ required: true, message: 'Put encrypted text data' }],
-        })(
-          <Form.TextArea
-            rows="10"
-            placeholder="encrypted text information..."
-          />
-        )}
+          rules: [{ required: true, message: 'Text message is required.' }],
+        })(<Form.TextArea rows="10" placeholder="encrypted text" />)}
       </Form.Item>
       <Form.Item>
-        {form.getFieldDecorator('key')(
-          <Form.Input placeholder="secret encryption key..." />
-        )}
+        {form.getFieldDecorator('key')(<Form.Input placeholder="secret key" />)}
       </Form.Item>
       <Form.Group>
-        {form.getFieldDecorator('algorithm', {
-          rules: [
-            {
-              required: true,
-              message: 'Select one of encryption algorithms',
-            },
-          ],
-        })(
-          <Form.Select placeholder="Select algorithm">
-            {encryptions.map(el => (
-              <Select.Option key={el.id} value={el.id}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
-        {form.getFieldDecorator('algorithmMode', {
-          rules: [
-            { required: true, message: 'Select encryption algorithm mode' },
-          ],
-        })(
-          <Form.Select placeholder="Select encryption mode">
-            {form.getFieldValue('algorithm') &&
-              encryptions
-                .find(a => a.id === Number(form.getFieldValue('algorithm')))
-                .modes.map(mode => (
-                  <Select.Option key={mode.id} value={mode.name}>
-                    {mode.title}
-                  </Select.Option>
-                ))}
-          </Form.Select>
-        )}
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('algorithm', {
+            rules: [
+              {
+                required: true,
+                message: 'Encryption algorithm is required.',
+              },
+            ],
+          })(
+            <Form.Select placeholder="Select algorithm">
+              {encryptions.map(el => (
+                <Select.Option key={el.id} value={el.id}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('algorithmMode', {
+            rules: [{ required: true, message: 'Algorithm mode is required.' }],
+          })(
+            <Form.Select placeholder="Select encryption mode">
+              {form.getFieldValue('algorithm') &&
+                encryptions
+                  .find(a => a.id === Number(form.getFieldValue('algorithm')))
+                  .modes.map(mode => (
+                    <Select.Option key={mode.id} value={mode.name}>
+                      {mode.title}
+                    </Select.Option>
+                  ))}
+            </Form.Select>
+          )}
+        </Form.Item>
       </Form.Group>
       <Form.Group>
-        {form.getFieldDecorator('decodingFrom', {
-          initialValue: encodings[1].name,
-        })(
-          <Form.Select>
-            {encodings.slice(1, 3).map(el => (
-              <Select.Option key={el.id} value={el.name}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
-        {form.getFieldDecorator('decodingTo', {
-          initialValue: encodings[0].name,
-        })(
-          <Form.Select>
-            {encodings.map(el => (
-              <Select.Option key={el.id} value={el.name}>
-                {el.title}
-              </Select.Option>
-            ))}
-          </Form.Select>
-        )}
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('decodingFrom', {
+            initialValue: encodings[1].name,
+          })(
+            <Form.Select>
+              {encodings.slice(1, 3).map(el => (
+                <Select.Option key={el.id} value={el.name}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
+        <Form.Item style={{ width: '50%' }}>
+          {form.getFieldDecorator('decodingTo', {
+            initialValue: encodings[0].name,
+          })(
+            <Form.Select>
+              {encodings.map(el => (
+                <Select.Option key={el.id} value={el.name}>
+                  {el.title}
+                </Select.Option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Item>
       </Form.Group>
       <Row>
-        <Col sm={{ span: 10, offset: 0 }}>
+        <Col sm={{ span: 11, offset: 0 }} style={{ marginBottom: '20px' }}>
           <UploadJson updateInitialState={updateFields} />
         </Col>
-        <Col sm={{ span: 10, offset: 4 }}>
+        <Col sm={{ span: 11, offset: 2 }}>
           <Form.Button type="submit" loading={isLoading}>
             DECRYPT
           </Form.Button>

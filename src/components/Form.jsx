@@ -13,11 +13,22 @@ const formItemStyles = css`
 `;
 
 const formGroupStyles = css`
-  margin-bottom: 20px;
+  & > *:first-child {
+    .ant-form-item-children > .ant-select > div {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  & > *:last-child {
+    .ant-form-item-children > .ant-select > div {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
 `;
 
 const formInputStyles = theme => css`
-  background-color: ${theme.dark};
+  background-color: ${theme.dark} !important;
   color: #fff;
   border: 0;
   &:hover,
@@ -28,7 +39,8 @@ const formInputStyles = theme => css`
 
 const formSelectStyles = theme => css`
   color: #fff;
-  min-width: 50%;
+  width: 100% !important;
+
   .ant-select-selection {
     background-color: ${theme.dark};
     border: none;
@@ -43,9 +55,16 @@ const formSelectStyles = theme => css`
 `;
 
 const formButtonStyles = theme => css`
-  background-color: ${theme.primary};
+  background-color: ${theme.bright};
   border: none;
   color: ${theme.text};
+  transition: all 250ms;
+  font-weight: bold;
+  &:hover,
+  &:focus {
+    background-color: ${theme.primary};
+    color: #fff;
+  }
 `;
 
 const StyledForm = props => (
@@ -62,6 +81,16 @@ const StyledForm = props => (
 
 const StyledFormItem = props => (
   <Form.Item css={formItemStyles} {...props}>
+    {props.children}
+  </Form.Item>
+);
+
+const StyledFormItemButton = props => (
+  <Form.Item
+    css={formItemStyles}
+    wrapperCol={{ md: { span: '12', offset: '6' } }}
+    {...props}
+  >
     {props.children}
   </Form.Item>
 );
@@ -96,8 +125,8 @@ const StyledButton = props => (
     shape="round"
     size="large"
     loading={props.loading}
-    block
     css={formButtonStyles}
+    block
     {...props}
   >
     {props.children}
@@ -109,6 +138,10 @@ StyledForm.propTypes = {
 };
 
 StyledFormItem.propTypes = {
+  children: PropTypes.node,
+};
+
+StyledFormItemButton.propTypes = {
   children: PropTypes.node,
 };
 
@@ -132,5 +165,6 @@ StyledForm.TextArea = StyledTextArea;
 StyledForm.Select = StyledSelect;
 StyledForm.Group = StyledGroup;
 StyledForm.Button = StyledButton;
+StyledForm.ItemButton = StyledFormItemButton;
 
 export default StyledForm;
