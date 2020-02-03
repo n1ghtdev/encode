@@ -1,4 +1,4 @@
-import symmetricService from '../services/symmetricService';
+import symmetricService from '../services/symmetricService.js';
 
 function encrypt(req, res) {
   try {

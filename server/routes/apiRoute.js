@@ -1,6 +1,6 @@
 import express from 'express';
-import SymmetricController from '../controllers/SymmetricController';
-import RSAController from '../controllers/RSAController';
+import SymmetricController from '../controllers/SymmetricController.js';
+import RSAController from '../controllers/RSAController.js';
 
 const router = express.Router();
 

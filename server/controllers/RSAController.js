@@ -1,4 +1,4 @@
-import rsaService from '../services/rsaService';
+import rsaService from '../services/rsaService.js';
 
 function encrypt(req, res) {
   try {
