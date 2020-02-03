@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form, Input, Select, Button } from 'antd';
-import { jsx, css } from '@emotion/core';
+import PropTypes from "prop-types";
+import { Form, Input, Select, Button } from "antd";
+import { jsx, css } from "@emotion/core";
 
 const formItemStyles = css`
   padding-bottom: 0 !important;
@@ -88,7 +87,7 @@ const StyledFormItem = props => (
 const StyledFormItemButton = props => (
   <Form.Item
     css={formItemStyles}
-    wrapperCol={{ md: { span: '12', offset: '6' } }}
+    wrapperCol={{ md: { span: "12", offset: "6" } }}
     {...props}
   >
     {props.children}
@@ -134,29 +133,29 @@ const StyledButton = props => (
 );
 
 StyledForm.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 StyledFormItem.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 StyledFormItemButton.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 StyledSelect.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 StyledGroup.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 StyledButton.propTypes = {
   type: PropTypes.string,
   children: PropTypes.string,
-  loading: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 StyledForm.Item = StyledFormItem;

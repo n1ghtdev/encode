@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { jsx, css } from '@emotion/core';
+import PropTypes from "prop-types";
+import { jsx, css } from "@emotion/core";
 
 const Container = ({ children }) => (
   <div
@@ -25,7 +24,7 @@ const Container = ({ children }) => (
 );
 
 Container.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default Container;

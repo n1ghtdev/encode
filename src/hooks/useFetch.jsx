@@ -1,8 +1,9 @@
-import React from 'react';
-import { postRequest } from '../utils/makeRequest';
-import { useStore } from '../modules/GlobalStore';
+import React from "react";
+import { postRequest } from "../utils/makeRequest";
+import { useStore } from "../modules/GlobalStore";
 
 const useFetch = action => {
+  /* eslint-disable-next-line no-unused-vars */
   const [_, dispatch] = useStore();
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState();

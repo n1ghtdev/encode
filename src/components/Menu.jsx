@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import { jsx, css } from '@emotion/core';
+import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
+import { jsx, css } from "@emotion/core";
 
 const Menu = ({ children }) => (
   <ul
@@ -54,12 +53,12 @@ const MenuItem = ({ children, to }) => (
 );
 
 Menu.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 MenuItem.propTypes = {
   children: PropTypes.string,
-  to: PropTypes.string,
+  to: PropTypes.string
 };
 
 Menu.Item = MenuItem;

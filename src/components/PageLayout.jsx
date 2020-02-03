@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { jsx, css } from '@emotion/core';
-import { Row, Col } from 'antd';
+import PropTypes from "prop-types";
+import { jsx, css } from "@emotion/core";
+import { Row, Col } from "antd";
 
 const colStyles = theme => css`
   background-color: ${theme.darkBright};
@@ -45,7 +44,7 @@ const PageLayout = ({ inputForm, outputForm }) => (
 
 PageLayout.propTypes = {
   inputForm: PropTypes.node,
-  outputForm: PropTypes.node,
+  outputForm: PropTypes.node
 };
 
 export default PageLayout;
