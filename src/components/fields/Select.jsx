@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import PropTypes from "prop-types";
-import { Select } from "antd";
-import { jsx, css } from "@emotion/core";
+import PropTypes from 'prop-types';
+import { Select } from 'antd';
+import { jsx, css } from '@emotion/core';
 
 const Option = Select.Option;
 
@@ -31,7 +31,7 @@ function StyledSelect(props) {
 }
 
 StyledSelect.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 StyledSelect.Option = Option;

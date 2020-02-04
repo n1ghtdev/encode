@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import PropTypes from "prop-types";
-import { Button } from "antd";
-import { jsx, css } from "@emotion/core";
+import PropTypes from 'prop-types';
+import { Button } from 'antd';
+import { jsx, css } from '@emotion/core';
 
 const styles = theme => css`
   background-color: ${theme.bright};
@@ -31,7 +31,7 @@ function StyledButton(props) {
 }
 
 StyledButton.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default StyledButton;

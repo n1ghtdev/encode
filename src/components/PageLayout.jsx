@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import PropTypes from "prop-types";
-import { jsx, css } from "@emotion/core";
-import { Row, Col } from "antd";
+import PropTypes from 'prop-types';
+import { jsx, css } from '@emotion/core';
+import { Row, Col } from 'antd';
 
 const rowStyles = css`
   align-items: flex-start;
@@ -49,7 +49,7 @@ const PageLayout = ({ inputForm, outputForm }) => (
 
 PageLayout.propTypes = {
   inputForm: PropTypes.node,
-  outputForm: PropTypes.node
+  outputForm: PropTypes.node,
 };
 
 export default PageLayout;

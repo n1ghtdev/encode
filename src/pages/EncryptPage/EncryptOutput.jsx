@@ -1,11 +1,11 @@
-import React from "react";
-import { Form } from "antd";
+import React from 'react';
+import { Form } from 'antd';
 
-import { Input } from "@components/fields";
-import Button from "@components/actions/Button";
+import { Input } from '@components/fields';
+import Button from '@components/actions/Button';
 
-import { useStore } from "@modules/GlobalStore";
-import generateJSONFile from "@utils/generateJSONFile";
+import { useStore } from '@modules/GlobalStore';
+import generateJSONFile from '@utils/generateJSONFile';
 
 const EncryptOutput = () => {
   const [{ encrypted }] = useStore();
@@ -31,7 +31,7 @@ const EncryptOutput = () => {
           readOnly
         />
       </Form.Item>
-      <Form.Item wrapperCol={{ md: { span: "12", offset: "6" } }}>
+      <Form.Item wrapperCol={{ md: { span: '12', offset: '6' } }}>
         <Button
           href={jsonOutput}
           icon="download"

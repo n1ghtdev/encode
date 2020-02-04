@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import { useLocation } from "react-router-dom";
+import { jsx, css } from '@emotion/core';
+import { useLocation } from 'react-router-dom';
 
 const text = {
   symmetric: () => (
@@ -31,7 +31,7 @@ const text = {
       system that uses pairs of keys: public keys which may be disseminated
       widely, and private keys which are known only to the owner.
     </p>
-  )
+  ),
 };
 
 const Intro = () => {

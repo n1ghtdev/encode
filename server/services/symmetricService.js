@@ -22,7 +22,7 @@ export default function symmetricService({ text, algorithm }) {
       key = getKeyFromPassword(
         password,
         getSalt(ALGORITHM.SALT_LEN),
-        ALGORITHM.KEY_LEN,
+        ALGORITHM.KEY_LEN
       );
     } else {
       key = getRandomKey(ALGORITHM.KEY_LEN);

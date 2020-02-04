@@ -1,8 +1,8 @@
-import React from "react";
-import { Form } from "antd";
+import React from 'react';
+import { Form } from 'antd';
 
-import { Input } from "@components/fields";
-import { useStore } from "@modules/GlobalStore";
+import { Input } from '@components/fields';
+import { useStore } from '@modules/GlobalStore';
 
 const DecryptOutput = () => {
   const [{ decrypted }] = useStore();

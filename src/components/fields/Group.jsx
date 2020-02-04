@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import PropTypes from "prop-types";
-import { Input } from "antd";
-import { jsx, css } from "@emotion/core";
+import PropTypes from 'prop-types';
+import { Input } from 'antd';
+import { jsx, css } from '@emotion/core';
 
 const styles = theme => css``;
 
@@ -14,7 +14,7 @@ function Group(props) {
 }
 
 Group.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default Group;

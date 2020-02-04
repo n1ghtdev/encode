@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import { Switch, Route, Redirect } from "react-router-dom";
-import { Layout } from "antd";
-import { jsx, css } from "@emotion/core";
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
+import { jsx, css } from '@emotion/core';
 
-import PageLayout from "./PageLayout";
-import Container from "./Container";
-import Menu from "./Menu";
-import Intro from "./Intro";
+import PageLayout from './PageLayout';
+import Container from './Container';
+import Menu from './Menu';
+import Intro from './Intro';
 
-import { EncryptForm, EncryptOutput } from "@pages/EncryptPage";
-import { DecryptForm, DecryptOutput } from "@pages/DecryptPage";
-import { EncryptRsaForm, EncryptRsaOutput } from "@pages/EncryptRsaPage";
-import { DecryptRsaForm, DecryptRsaOutput } from "@pages/DecryptRsaPage";
+import { EncryptForm, EncryptOutput } from '@pages/EncryptPage';
+import { DecryptForm, DecryptOutput } from '@pages/DecryptPage';
+import { EncryptRsaForm, EncryptRsaOutput } from '@pages/EncryptRsaPage';
+import { DecryptRsaForm, DecryptRsaOutput } from '@pages/DecryptRsaPage';
 
-import { StoreProvider } from "@modules/GlobalStore";
+import { StoreProvider } from '@modules/GlobalStore';
 
 const App = () => {
   return (
@@ -32,10 +32,10 @@ const App = () => {
           padding-top: 20px;
         `}
         zeroWidthTriggerStyle={{
-          top: "5px",
-          position: "fixed",
-          left: "0",
-          backgroundColor: "#121212"
+          top: '5px',
+          position: 'fixed',
+          left: '0',
+          backgroundColor: '#121212',
         }}
       >
         <Menu>

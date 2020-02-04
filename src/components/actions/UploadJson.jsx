@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React from "react";
-import PropTypes from "prop-types";
-import { Upload, Button } from "antd";
-import { jsx, css } from "@emotion/core";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Upload, Button } from 'antd';
+import { jsx, css } from '@emotion/core';
 
 const UploadJson = ({ updateInitialState }) => {
   const [json, setJson] = React.useState(null);
@@ -42,7 +42,7 @@ const UploadJson = ({ updateInitialState }) => {
 };
 
 UploadJson.propTypes = {
-  updateInitialState: PropTypes.func
+  updateInitialState: PropTypes.func,
 };
 
 export default UploadJson;
