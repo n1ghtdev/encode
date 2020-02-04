@@ -17,6 +17,21 @@
       "src/*"
     ]
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@emotion/core": "^10.0.27",
     "antd": "^4.0.0-rc.3",
@@ -30,17 +45,21 @@
   },
   "devDependencies": {
     "@babel/core": "7.8.4",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
     "@svgr/webpack": "4.3.3",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "antd-dayjs-webpack-plugin": "0.0.6",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
+    "babel-plugin-emotion": "^10.0.27",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-named-asset-import": "^0.3.6",
     "babel-preset-react-app": "^9.1.1",
     "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "cross-env": "^5.2.0",
     "css-loader": "3.4.2",
     "dotenv-expand": "5.1.0",
     "emotion-theming": "^10.0.27",
@@ -55,12 +74,16 @@
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
+    "husky": "^4.2.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
+    "lint-staged": "^10.0.7",
     "mini-css-extract-plugin": "0.9.0",
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.0",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -68,6 +91,7 @@
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
+    "prettier": "^1.19.1",
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.1.0",
     "resolve": "1.15.0",
@@ -82,13 +106,7 @@
     "webpack": "4.41.5",
     "webpack-dev-server": "3.10.1",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "4.3.1",
-    "@emotion/babel-preset-css-prop": "^10.0.27",
-    "antd-dayjs-webpack-plugin": "0.0.6",
-    "babel-plugin-emotion": "^10.0.27",
-    "cross-env": "^5.2.0",
-    "node-sass": "^4.13.1",
-    "nodemon": "^2.0.2"
+    "workbox-webpack-plugin": "4.3.1"
   },
   "browserslist": {
     "production": [
