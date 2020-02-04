@@ -1,30 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Form, Input, Select, Button, Row, Col } from 'antd';
+import { Form, Row, Col } from 'antd';
 
-import UploadJson from '../../components/UploadJson';
+import { Input, Select, Group } from '@components/fields';
+import { Button, UploadJson } from '@components/actions';
 
-import useCryptoData from '../../hooks/useCryptoData';
-import useFetch from '../../hooks/useFetch';
-import { setRsaDecryptedData } from '../../modules/actions';
+import useCryptoData from '@hooks/useCryptoData';
+import useFetch from '@hooks/useFetch';
+import { setRsaDecryptedData } from '@modules/actions';
 
 import { API_RSA_DECRYPT } from '../../api';
 
-const DecryptRsaForm = ({ form }) => {
+const DecryptRsaForm = () => {
   const { encodings } = useCryptoData();
   const { isLoading, makePostRequest } = useFetch(setRsaDecryptedData);
+  const [form] = Form.useForm();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        makePostRequest(API_RSA_DECRYPT, {
-          text: values.decrRsaText,
-          privateKey: values.decrRsaPrivKey,
-          decodingFrom: values.decodingFrom,
-          decodingTo: values.decodingTo,
-        });
-      }
+  const handleSubmit = values => {
+    makePostRequest(API_RSA_DECRYPT, {
+      text: values.decrRsaText,
+      privateKey: values.decrRsaPrivKey,
+      decodingFrom: values.decodingFrom,
+      decodingTo: values.decodingTo,
     });
   };
 
@@ -34,105 +30,63 @@ const DecryptRsaForm = ({ form }) => {
       decrRsaPrivKey: data.privateKey,
     });
   };
+
+  const initialFormValues = {
+    decodingFrom: encodings[1].name,
+    decodingTo: encodings[0].name,
+  };
+
   return (
     <Form
-      layout="vertical"
-      onSubmit={handleSubmit}
-      style={{
-        backgroundColor: '#fff',
-        padding: '10px',
-        borderRadius: '5px',
-        boxShadow: '1px 2px 2px rgba(0, 0, 0, .1)',
-      }}
+      form={form}
+      name="decryptRsaForm"
+      onFinish={handleSubmit}
+      initialValues={initialFormValues}
     >
-      <Form.Item label="Encrypted text">
-        {form.getFieldDecorator('decrRsaText', {
-          rules: [{ required: true, message: 'Put encrypted text data' }],
-        })(
-          <Input.TextArea
-            rows="15"
-            type="input"
-            placeholder="encrypted text information..."
-          />,
-        )}
+      <Form.Item
+        name="decrRsaText"
+        rules={[{ required: true, message: 'Text message is required.' }]}
+      >
+        <Input.TextArea rows="10" placeholder="encrypted text" />
       </Form.Item>
-      <Form.Item label="Secret key">
-        {form.getFieldDecorator('decrRsaPrivKey', {
-          rules: [{ required: true, message: 'Paste RSA secret key' }],
-        })(
-          <Input.TextArea
-            rows="5"
-            type="input"
-            placeholder="secret encryption key"
-          />,
-        )}
+      <Form.Item
+        name="decrRsaPrivKey"
+        rules={[{ required: true, message: 'Secret key is required.' }]}
+      >
+        <Input.TextArea rows="5" placeholder="secret key" />
       </Form.Item>
-      <Form.Item>
-        <Form.Item
-          label="Decode from"
-          style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}
-        >
-          {form.getFieldDecorator('decodingFrom', {
-            initialValue: encodings[1].name,
-          })(
-            <Select>
-              {encodings.slice(1, 3).map(el => (
-                <Select.Option key={el.id} value={el.name}>
-                  {el.title}
-                </Select.Option>
-              ))}
-            </Select>,
-          )}
+      <Group>
+        <Form.Item style={{ width: '50%' }} name="decodingFrom">
+          <Select>
+            {encodings.slice(1, 3).map(el => (
+              <Select.Option key={el.id} value={el.name}>
+                {el.title}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-        <span
-          style={{
-            display: 'inline-block',
-            width: '24px',
-            textAlign: 'center',
-          }}
-        />
-        <Form.Item
-          label="Decode to"
-          style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}
-        >
-          {form.getFieldDecorator('decodingTo', {
-            initialValue: encodings[0].name,
-          })(
-            <Select>
-              {encodings.map(el => (
-                <Select.Option key={el.id} value={el.name}>
-                  {el.title}
-                </Select.Option>
-              ))}
-            </Select>,
-          )}
+        <Form.Item style={{ width: '50%' }} name="decodingTo">
+          <Select>
+            {encodings.map(el => (
+              <Select.Option key={el.id} value={el.name}>
+                {el.title}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-      </Form.Item>
-      <Form.Item>
-        <Row>
-          <Col sm={{ span: 16, offset: 0 }}>
-            <UploadJson updateInitialState={updateFields} />
-          </Col>
-          <Col sm={{ span: 8, offset: 0 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              shape="round"
-              size="large"
-              loading={isLoading}
-              block
-            >
-              DECRYPT
-            </Button>
-          </Col>
-        </Row>
-      </Form.Item>
+      </Group>
+      <Row>
+        <Col sm={{ span: 11, offset: 0 }} style={{ marginBottom: '20px' }}>
+          <UploadJson updateInitialState={updateFields} />
+        </Col>
+        <Col sm={{ span: 11, offset: 2 }}>
+          <Button htmlType="submit" loading={isLoading}>
+            DECRYPT
+          </Button>
+        </Col>
+      </Row>
     </Form>
   );
 };
 
-DecryptRsaForm.propTypes = {
-  form: PropTypes.object.isRequired,
-};
-
-export default Form.create({ name: 'RSADecryption' })(DecryptRsaForm);
+export default DecryptRsaForm;

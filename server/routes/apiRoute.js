@@ -1,6 +1,6 @@
-import express from 'express';
-import SymmetricController from '../controllers/SymmetricController';
-import RSAController from '../controllers/RSAController';
+const express = require('express');
+const SymmetricController = require('../controllers/SymmetricController');
+const RSAController = require('../controllers/RSAController');
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.post(RSA_ENCRYPT_URL, RSAController.encrypt);
 
 router.post(RSA_DECRYPT_URL, RSAController.decrypt);
 
-export { router as ApiRoute };
+module.exports = router;

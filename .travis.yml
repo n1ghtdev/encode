@@ -1,0 +1,16 @@
+language: node_js
+node_js: node
+cache:
+  directories:
+    - node_modules
+
+branches:
+  only:
+    - master
+
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  api_key:
+    secure: $HEROKU_API_KEY
+  app: encode-app

@@ -1,65 +1,50 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
 
-import generateJSONFile from '../../utils/generateJSONFile';
+import { Form } from 'antd';
 
-import { useStore } from '../../modules/GlobalStore';
+import { Input } from '@components/fields';
+import Button from '@components/actions/Button';
+
+import generateJSONFile from '@utils/generateJSONFile';
+import { useStore } from '@modules/GlobalStore';
 
 const EncryptRsaOutput = () => {
   const [{ rsaEncrypted }] = useStore();
 
   const jsonOutput = rsaEncrypted.text && generateJSONFile(rsaEncrypted);
-  const tailFormItemLayout = {
-    wrapperCol: {
-      lg: { span: 10 },
-      xs: { span: 24 },
-    },
-  };
   return (
-    <Form
-      layout="vertical"
-      style={{
-        backgroundColor: '#fff',
-        padding: '10px',
-        borderRadius: '5px',
-        boxShadow: '1px 2px 2px rgba(0, 0, 0, .1)',
-      }}
-    >
-      <Form.Item label="Encrypted text">
+    <Form layout="vertical">
+      <Form.Item>
         <Input.TextArea
-          rows="15"
-          type="input"
+          rows="10"
           name="output-enctext"
-          value={rsaEncrypted.text || 'encrypted text output...'}
+          value={rsaEncrypted && rsaEncrypted.text}
+          placeholder="encrypted text"
           readOnly
         />
       </Form.Item>
       <Form.Item label="Public key">
         <Input.TextArea
           rows="3"
-          type="input"
           name="output-pubkey"
-          value={rsaEncrypted.publicKey || 'public encryption key...'}
+          value={rsaEncrypted && rsaEncrypted.publicKey}
+          placeholder="public key"
           readOnly
         />
       </Form.Item>
       <Form.Item label="Secret key">
         <Input.TextArea
           rows="3"
-          type="input"
           name="output-privkey"
-          value={rsaEncrypted.privateKey || 'secret encryption key...'}
+          value={rsaEncrypted && rsaEncrypted.privateKey}
+          placeholder="private key"
           readOnly
         />
       </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
+      <Form.Item wrapperCol={{ md: { span: '12', offset: '6' } }}>
         <Button
-          block
-          type="primary"
           href={jsonOutput}
           icon="download"
-          size="large"
-          shape="round"
           download="rsa-encrypted-data.json"
         >
           Save to JSON

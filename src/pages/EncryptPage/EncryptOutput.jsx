@@ -1,54 +1,40 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
-import generateJSONFile from '../../utils/generateJSONFile';
+import { Form } from 'antd';
 
-import { useStore } from '../../modules/GlobalStore';
+import { Input } from '@components/fields';
+import Button from '@components/actions/Button';
+
+import { useStore } from '@modules/GlobalStore';
+import generateJSONFile from '@utils/generateJSONFile';
 
 const EncryptOutput = () => {
   const [{ encrypted }] = useStore();
 
   const jsonOutput = encrypted.text && generateJSONFile(encrypted);
-  const tailFormItemLayout = {
-    wrapperCol: {
-      lg: { span: 10 },
-      xs: { span: 24 },
-    },
-  };
   return (
-    <Form
-      layout="vertical"
-      style={{
-        backgroundColor: '#fff',
-        padding: '10px',
-        borderRadius: '5px',
-        boxShadow: '1px 2px 2px rgba(0, 0, 0, .1)',
-      }}
-    >
-      <Form.Item label="Encrypted text">
+    <Form>
+      <Form.Item>
         <Input.TextArea
-          rows="15"
-          type="input"
+          rows="10"
           name="output-text"
-          value={encrypted.text || 'encrypted text output...'}
+          value={encrypted && encrypted.text}
+          placeholder="encrypted text"
           readOnly
         />
       </Form.Item>
-      <Form.Item label="Encryption key">
+      <Form.Item>
         <Input
           type="input"
           name="output-key"
-          value={encrypted.key || 'secret encryption key...'}
+          value={encrypted && encrypted.key}
+          placeholder="secret encryption key"
           readOnly
         />
       </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
+      <Form.Item wrapperCol={{ md: { span: '12', offset: '6' } }}>
         <Button
-          block
-          type="primary"
           href={jsonOutput}
           icon="download"
-          size="large"
-          shape="round"
           download="encrypted-data.json"
         >
           Save to JSON

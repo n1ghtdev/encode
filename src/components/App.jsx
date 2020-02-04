@@ -1,28 +1,53 @@
-import React from 'react';
+/** @jsx jsx */
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Layout, Button } from 'antd';
-
-import AboutPage from '../pages/AboutPage';
-import { EncryptForm, EncryptOutput } from '../pages/EncryptPage';
-import { DecryptForm, DecryptOutput } from '../pages/DecryptPage';
-import { EncryptRsaForm, EncryptRsaOutput } from '../pages/EncryptRsaPage';
-import { DecryptRsaForm, DecryptRsaOutput } from '../pages/DecryptRsaPage';
+import { Layout } from 'antd';
+import { jsx, css } from '@emotion/core';
 
 import PageLayout from './PageLayout';
-import Sidebar from './Sidebar';
+import Container from './Container';
+import Menu from './Menu';
+import Intro from './Intro';
 
-// this app don't actually need global state implementation,
-// it's easy to make it without one
-// the main reason there is global state is to learn how to use useReducer hook
-// with Context API to implement global state management
-import { StoreProvider } from '../modules/GlobalStore';
+import { EncryptForm, EncryptOutput } from '@pages/EncryptPage';
+import { DecryptForm, DecryptOutput } from '@pages/DecryptPage';
+import { EncryptRsaForm, EncryptRsaOutput } from '@pages/EncryptRsaPage';
+import { DecryptRsaForm, DecryptRsaOutput } from '@pages/DecryptRsaPage';
 
-const App = () => (
-  <Layout style={{ minHeight: '100vh' }}>
-    <Sidebar />
-    <Layout>
+import { StoreProvider } from '@modules/GlobalStore';
+
+const App = () => {
+  return (
+    <Layout
+      css={theme => css`
+        background-color ${theme.background};
+        min-height: 100vh;
+      `}
+    >
+      <Layout.Sider
+        width="250px"
+        breakpoint="lg"
+        collapsedWidth="0"
+        css={theme => css`
+          background-color: ${theme.bright};
+          padding-top: 20px;
+        `}
+        zeroWidthTriggerStyle={{
+          top: '5px',
+          position: 'fixed',
+          left: '0',
+          backgroundColor: '#121212',
+        }}
+      >
+        <Menu>
+          <Menu.Item to="/encrypt">symmetric encryption</Menu.Item>
+          <Menu.Item to="/decrypt">symmetric decryption</Menu.Item>
+          <Menu.Item to="/rsa-encrypt">RSA encryption</Menu.Item>
+          <Menu.Item to="/rsa-decrypt">RSA decryption</Menu.Item>
+        </Menu>
+      </Layout.Sider>
       <StoreProvider>
-        <Layout.Content style={{ margin: '25px' }}>
+        <Container>
+          <Intro />
           <Switch>
             <Redirect exact from="/" to="encrypt" />
             <Route
@@ -65,22 +90,11 @@ const App = () => (
                 />
               )}
             />
-            <Route exact path="/about" component={AboutPage} />
           </Switch>
-        </Layout.Content>
+        </Container>
       </StoreProvider>
-      <Layout.Footer style={{ textAlign: 'center', marginTop: 'auto' }}>
-        <Button
-          type="link"
-          href="https://github.com/n1ghtdev/"
-          target="_blank"
-          style={{ opacity: '.3', color: '#000' }}
-        >
-          github.com/n1ghtdev
-        </Button>
-      </Layout.Footer>
     </Layout>
-  </Layout>
-);
+  );
+};
 
 export default App;
