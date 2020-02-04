@@ -1,9 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import path, { resolve } from 'path';
-import dotenv from 'dotenv';
+const express = require('express');
+const bodyParser = require('body-parser');
+const { resolve } = require('path');
+const dotenv = require('dotenv');
 
-import { router as routes } from './routes/index.js';
+const router = require('./routes');
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.use('/', express.static(resolve('build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(routes);
+app.use(router);
 
 app.get('*', (req, res) => {
   res.sendFile('index.html', { root: resolve('build') });

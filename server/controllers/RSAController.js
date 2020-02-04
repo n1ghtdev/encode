@@ -1,4 +1,4 @@
-import rsaService from '../services/rsaService.js';
+const rsaService = require('../services/rsaService');
 
 function encrypt(req, res) {
   try {
@@ -9,6 +9,7 @@ function encrypt(req, res) {
     return res.status(400).json({ message: error.message });
   }
 }
+
 function decrypt(req, res) {
   try {
     const cipher = rsaService(req.body);
@@ -18,9 +19,10 @@ function decrypt(req, res) {
     return res.status(400).json({ message: error.message });
   }
 }
+
 const RSAController = {
   encrypt,
   decrypt,
 };
 
-export default RSAController;
+module.exports = RSAController;

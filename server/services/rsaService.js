@@ -1,6 +1,6 @@
-import crypto from 'crypto';
+const crypto = require('crypto');
 
-export default function rsaService({ text }) {
+module.exports = function rsaService({ text }) {
   const generateKeyPair = () => {
     const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
       modulusLength: 2048,
@@ -64,4 +64,4 @@ export default function rsaService({ text }) {
     encrypt,
     decrypt,
   };
-}
+};

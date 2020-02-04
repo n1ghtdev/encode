@@ -1,6 +1,6 @@
-import crypto from 'crypto';
-/*eslint-disable*/
-export default function symmetricService({ text, algorithm }) {
+const crypto = require('crypto');
+
+module.exports = function symmetricService({ text, algorithm }) {
   const ALGORITHM = {
     CIPHER: algorithm.modes
       ? `${algorithm.name}-${algorithm.modes}`
@@ -69,4 +69,4 @@ export default function symmetricService({ text, algorithm }) {
     encrypt,
     decrypt,
   };
-}
+};
