@@ -1,18 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import Form from '../../components/Form';
-import generateJSONFile from '../../utils/generateJSONFile';
+import { Form } from "antd";
 
-import { useStore } from '../../modules/GlobalStore';
+import { Input } from "@components/fields";
+import Button from "@components/actions/Button";
+
+import generateJSONFile from "@utils/generateJSONFile";
+import { useStore } from "@modules/GlobalStore";
 
 const EncryptRsaOutput = () => {
   const [{ rsaEncrypted }] = useStore();
 
   const jsonOutput = rsaEncrypted.text && generateJSONFile(rsaEncrypted);
   return (
-    <Form>
+    <Form layout="vertical">
       <Form.Item>
-        <Form.TextArea
+        <Input.TextArea
           rows="10"
           name="output-enctext"
           value={rsaEncrypted && rsaEncrypted.text}
@@ -21,7 +24,7 @@ const EncryptRsaOutput = () => {
         />
       </Form.Item>
       <Form.Item label="Public key">
-        <Form.TextArea
+        <Input.TextArea
           rows="3"
           name="output-pubkey"
           value={rsaEncrypted && rsaEncrypted.publicKey}
@@ -30,7 +33,7 @@ const EncryptRsaOutput = () => {
         />
       </Form.Item>
       <Form.Item label="Secret key">
-        <Form.TextArea
+        <Input.TextArea
           rows="3"
           name="output-privkey"
           value={rsaEncrypted && rsaEncrypted.privateKey}
@@ -38,15 +41,15 @@ const EncryptRsaOutput = () => {
           readOnly
         />
       </Form.Item>
-      <Form.ItemButton>
-        <Form.Button
+      <Form.Item wrapperCol={{ md: { span: "12", offset: "6" } }}>
+        <Button
           href={jsonOutput}
           icon="download"
           download="rsa-encrypted-data.json"
         >
           Save to JSON
-        </Form.Button>
-      </Form.ItemButton>
+        </Button>
+      </Form.Item>
     </Form>
   );
 };

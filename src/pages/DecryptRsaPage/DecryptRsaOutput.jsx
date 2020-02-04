@@ -1,17 +1,19 @@
-import React from 'react';
+import React from "react";
+import { Form } from "antd";
 
-import Form from '../../components/Form';
-import { useStore } from '../../modules/GlobalStore';
+import { Input } from "@components/fields";
+import { useStore } from "@modules/GlobalStore";
 
 const DecryptRsaOutput = () => {
   const [{ rsaDecrypted }] = useStore();
 
   return (
     <Form>
-      <Form.TextArea
+      <Input.TextArea
         rows="10"
         name="encryptedRsaText"
-        value={rsaDecrypted.text || 'decrypted text output....'}
+        value={rsaDecrypted && rsaDecrypted.text}
+        placeholder="decrypted text"
         readOnly
       />
     </Form>

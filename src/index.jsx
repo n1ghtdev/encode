@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "emotion-theming";
 
-import theme from "./styles/theme";
-import App from "./components/App";
+import theme from "@styles/theme";
+import App from "@components/App";
 
 import "./globalStyles.scss";
 

@@ -3,12 +3,16 @@ import PropTypes from "prop-types";
 import { jsx, css } from "@emotion/core";
 import { Row, Col } from "antd";
 
+const rowStyles = css`
+  align-items: flex-start;
+`;
+
 const colStyles = theme => css`
   background-color: ${theme.darkBright};
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 4px 4px 6px ${theme.dark};
   margin-bottom: 20px;
+  width: 100%;
 
   @media screen and (min-width: 1024px) and (max-width: 1599px) {
     &:first-child {
@@ -23,11 +27,12 @@ const colStyles = theme => css`
 
   @media screen and (min-width: 1024px) {
     margin-bottom: 0;
+    box-shadow: 4px 4px 6px ${theme.dark};
   }
 `;
 
 const PageLayout = ({ inputForm, outputForm }) => (
-  <Row>
+  <Row css={rowStyles}>
     <Col sm={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 11 }} css={colStyles}>
       {inputForm}
     </Col>

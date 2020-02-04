@@ -1,8 +1,11 @@
-import React from 'react';
-import generateJSONFile from '../../utils/generateJSONFile';
+import React from "react";
+import { Form } from "antd";
 
-import Form from '../../components/Form';
-import { useStore } from '../../modules/GlobalStore';
+import { Input } from "@components/fields";
+import Button from "@components/actions/Button";
+
+import { useStore } from "@modules/GlobalStore";
+import generateJSONFile from "@utils/generateJSONFile";
 
 const EncryptOutput = () => {
   const [{ encrypted }] = useStore();
@@ -11,30 +14,32 @@ const EncryptOutput = () => {
   return (
     <Form>
       <Form.Item>
-        <Form.TextArea
+        <Input.TextArea
           rows="10"
           name="output-text"
-          value={encrypted.text || 'encrypted text output...'}
+          value={encrypted && encrypted.text}
+          placeholder="encrypted text"
           readOnly
         />
       </Form.Item>
       <Form.Item>
-        <Form.Input
+        <Input
           type="input"
           name="output-key"
-          value={encrypted.key || 'secret encryption key...'}
+          value={encrypted && encrypted.key}
+          placeholder="secret encryption key"
           readOnly
         />
       </Form.Item>
-      <Form.ItemButton>
-        <Form.Button
+      <Form.Item wrapperCol={{ md: { span: "12", offset: "6" } }}>
+        <Button
           href={jsonOutput}
           icon="download"
           download="encrypted-data.json"
         >
           Save to JSON
-        </Form.Button>
-      </Form.ItemButton>
+        </Button>
+      </Form.Item>
     </Form>
   );
 };

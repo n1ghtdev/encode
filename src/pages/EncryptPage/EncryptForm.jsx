@@ -1,114 +1,122 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Form as AntForm, Select } from "antd";
+import { Form } from "antd";
 
-import Form from "../../components/Form";
-import useCryptoData from "../../hooks/useCryptoData";
-import useFetch from "../../hooks/useFetch";
-import { setEncryptedData } from "../../modules/actions";
+import { Input, Select, Group } from "@components/fields";
+import Button from "@components/actions/Button";
+
+import useCryptoData from "@hooks/useCryptoData";
+import useFetch from "@hooks/useFetch";
+import { setEncryptedData } from "@modules/actions";
+
 import { API_ENCRYPT } from "../../api";
 
-const EncryptForm = ({ form }) => {
+const EncryptForm = () => {
   const { encryptions, encodings } = useCryptoData();
   const { isLoading, makePostRequest } = useFetch(setEncryptedData);
+  const [form] = Form.useForm();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        makePostRequest(API_ENCRYPT, {
-          text: values.text,
-          algorithm: {
-            ...encryptions.find(enc => enc.id === Number(values.algorithm)),
-            modes: values.algorithmMode
-          },
-          password: values.key,
-          encodingFrom: values.encodingFrom,
-          encodingTo: values.encodingTo
-        });
-      }
+  const handleSubmit = values => {
+    makePostRequest(API_ENCRYPT, {
+      text: values.text,
+      algorithm: {
+        ...encryptions.find(enc => enc.id === Number(values.algorithm)),
+        modes: values.algorithmMode
+      },
+      password: values.key,
+      encodingFrom: values.encodingFrom,
+      encodingTo: values.encodingTo
     });
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Item>
-        {form.getFieldDecorator("text", {
-          rules: [{ required: true, message: "Text message is required." }]
-        })(<Form.TextArea rows="10" placeholder="text to encrypt" />)}
+    <Form form={form} name="encryptForm" onFinish={handleSubmit}>
+      <Form.Item
+        name="text"
+        rules={[{ required: true, message: "Text message is required." }]}
+      >
+        <Input.TextArea rows="10" placeholder="text to encrypt" />
       </Form.Item>
-      <Form.Item>
-        {form.getFieldDecorator("key")(
-          <Form.Input type="input" placeholder="Encryption key..." />
-        )}
+      <Form.Item name="key">
+        <Input type="input" placeholder="Encryption key..." />
       </Form.Item>
-      <Form.Group>
-        <Form.Item style={{ width: "50%" }}>
-          {form.getFieldDecorator("algorithm", {
-            rules: [
-              {
-                required: true,
-                message: "Encryption algorithm is required."
-              }
-            ]
-          })(
-            <Form.Select placeholder="Select algorithm">
-              {encryptions.map(el => (
-                <Select.Option key={el.id} value={el.id}>
-                  {el.title}
-                </Select.Option>
-              ))}
-            </Form.Select>
-          )}
+      <Group>
+        <Form.Item
+          style={{ width: "50%" }}
+          name="algorithm"
+          onChange={value => {
+            form.setFieldsValue({ algorithmMode: value });
+          }}
+          rules={[
+            {
+              required: true,
+              message: "Encryption algorithm is required."
+            }
+          ]}
+        >
+          <Select placeholder="Select algorithm">
+            {encryptions.map(el => (
+              <Select.Option key={el.id} value={el.id}>
+                {el.title}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-        <Form.Item style={{ width: "50%" }}>
-          {form.getFieldDecorator("algorithmMode", {
-            rules: [{ required: true, message: "Algorithm mode is required." }]
-          })(
-            <Form.Select placeholder="Select encryption mode">
-              {form.getFieldValue("algorithm") &&
-                encryptions
-                  .find(a => a.id === Number(form.getFieldValue("algorithm")))
-                  .modes.map(mode => (
-                    <Select.Option key={mode.id} value={mode.name}>
-                      {mode.title}
-                    </Select.Option>
-                  ))}
-            </Form.Select>
-          )}
+        <Form.Item
+          style={{ width: "50%" }}
+          rules={[{ required: true, message: "Algorithm mode is required." }]}
+          shouldUpdate={(prevValues, currentValues) =>
+            prevValues.algorithm !== currentValues.algorithm
+          }
+        >
+          {/* shows algorithm modes, if none selected shows empty select component */}
+          {({ getFieldValue }) =>
+            getFieldValue("algorithm") ? (
+              <Form.Item name="algorithmMode">
+                <Select placeholder="Select encryption mode">
+                  {encryptions
+                    .find(a => a.id === Number(getFieldValue("algorithm")))
+                    .modes.map(mode => (
+                      <Select.Option key={mode.id} value={mode.name}>
+                        {mode.title}
+                      </Select.Option>
+                    ))}
+                </Select>
+              </Form.Item>
+            ) : (
+              <Form.Item name="algorithmMode">
+                <Select placeholder="Select encryption mode"></Select>
+              </Form.Item>
+            )
+          }
         </Form.Item>
-      </Form.Group>
-      <Form.Group>
-        <Form.Item style={{ width: "50%" }}>
-          <Form.Select defaultValue={encodings[0].name}>
+      </Group>
+      <Group>
+        <Form.Item style={{ width: "50%" }} name="encodingFrom">
+          <Select defaultValue={encodings[0].name}>
             {encodings.map(el => (
               <Select.Option key={el.id} value={el.name}>
                 {el.title}
               </Select.Option>
             ))}
-          </Form.Select>
+          </Select>
         </Form.Item>
-        <Form.Item style={{ width: "50%" }}>
-          <Form.Select defaultValue={encodings[1].name}>
+        <Form.Item style={{ width: "50%" }} name="encodingTo">
+          <Select defaultValue={encodings[1].name}>
             {encodings.slice(1, 3).map(el => (
               <Select.Option key={el.id} value={el.name}>
                 {el.title}
               </Select.Option>
             ))}
-          </Form.Select>
+          </Select>
         </Form.Item>
-      </Form.Group>
-      <Form.ItemButton>
-        <Form.Button type="submit" loading={isLoading}>
+      </Group>
+      <Form.Item wrapperCol={{ md: { span: "12", offset: "6" } }}>
+        <Button type="submit" loading={isLoading}>
           ENCRYPT
-        </Form.Button>
-      </Form.ItemButton>
+        </Button>
+      </Form.Item>
     </Form>
   );
 };
 
-EncryptForm.propTypes = {
-  form: PropTypes.object.isRequired
-};
-
-export default AntForm.create({ name: "symmetricEncryption" })(EncryptForm);
+export default EncryptForm;

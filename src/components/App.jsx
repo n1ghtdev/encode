@@ -3,19 +3,17 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { Layout } from "antd";
 import { jsx, css } from "@emotion/core";
 
+import PageLayout from "./PageLayout";
 import Container from "./Container";
 import Menu from "./Menu";
 import Intro from "./Intro";
 
-import AboutPage from "../pages/AboutPage";
-import { EncryptForm, EncryptOutput } from "../pages/EncryptPage";
-import { DecryptForm, DecryptOutput } from "../pages/DecryptPage";
-import { EncryptRsaForm, EncryptRsaOutput } from "../pages/EncryptRsaPage";
-import { DecryptRsaForm, DecryptRsaOutput } from "../pages/DecryptRsaPage";
+import { EncryptForm, EncryptOutput } from "@pages/EncryptPage";
+import { DecryptForm, DecryptOutput } from "@pages/DecryptPage";
+import { EncryptRsaForm, EncryptRsaOutput } from "@pages/EncryptRsaPage";
+import { DecryptRsaForm, DecryptRsaOutput } from "@pages/DecryptRsaPage";
 
-import PageLayout from "./PageLayout";
-
-import { StoreProvider } from "../modules/GlobalStore";
+import { StoreProvider } from "@modules/GlobalStore";
 
 const App = () => {
   return (
@@ -31,6 +29,7 @@ const App = () => {
         collapsedWidth="0"
         css={theme => css`
           background-color: ${theme.bright};
+          padding-top: 20px;
         `}
         zeroWidthTriggerStyle={{
           top: "5px",
@@ -91,7 +90,6 @@ const App = () => {
                 />
               )}
             />
-            <Route exact path="/about" component={AboutPage} />
           </Switch>
         </Container>
       </StoreProvider>

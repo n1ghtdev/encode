@@ -8,6 +8,11 @@ const Menu = ({ children }) => (
     css={css`
       list-style-type: none;
       width: 100%;
+      margin-top: 50px;
+
+      @media screen and (min-width: 769px) {
+        margin-top: 0;
+      }
     `}
   >
     {children}
