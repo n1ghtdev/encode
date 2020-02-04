@@ -35,8 +35,19 @@ const DecryptForm = () => {
       key: data.key,
     });
   };
+
+  const initialFormValues = {
+    decodingFrom: encodings[1].name,
+    decodingTo: encodings[0].name,
+  };
+
   return (
-    <Form form={form} name="decryptForm" onFinish={handleSubmit}>
+    <Form
+      form={form}
+      name="decryptForm"
+      onFinish={handleSubmit}
+      initialValues={initialFormValues}
+    >
       <Form.Item
         name="text"
         rules={[{ required: true, message: 'Text message is required.' }]}
@@ -95,7 +106,7 @@ const DecryptForm = () => {
       </Group>
       <Group>
         <Form.Item style={{ width: '50%' }} name="decodingFrom">
-          <Select defaultValue={encodings[1].name}>
+          <Select>
             {encodings.slice(1, 3).map(el => (
               <Select.Option key={el.id} value={el.name}>
                 {el.title}
@@ -104,7 +115,7 @@ const DecryptForm = () => {
           </Select>
         </Form.Item>
         <Form.Item style={{ width: '50%' }} name="decodingTo">
-          <Select defaultValue={encodings[0].name}>
+          <Select>
             {encodings.map(el => (
               <Select.Option key={el.id} value={el.name}>
                 {el.title}
@@ -118,7 +129,7 @@ const DecryptForm = () => {
           <UploadJson updateInitialState={updateFields} />
         </Col>
         <Col sm={{ span: 11, offset: 2 }}>
-          <Button type="submit" loading={isLoading}>
+          <Button htmlType="submit" loading={isLoading}>
             DECRYPT
           </Button>
         </Col>

@@ -16,6 +16,8 @@ const EncryptForm = () => {
   const [form] = Form.useForm();
 
   const handleSubmit = values => {
+    console.log(values);
+
     makePostRequest(API_ENCRYPT, {
       text: values.text,
       algorithm: {
@@ -28,8 +30,18 @@ const EncryptForm = () => {
     });
   };
 
+  const initialFormValues = {
+    encodingFrom: encodings[0].name,
+    encodingTo: encodings[1].name,
+  };
+
   return (
-    <Form form={form} name="encryptForm" onFinish={handleSubmit}>
+    <Form
+      form={form}
+      name="encryptForm"
+      onFinish={handleSubmit}
+      initialValues={initialFormValues}
+    >
       <Form.Item
         name="text"
         rules={[{ required: true, message: 'Text message is required.' }]}
@@ -92,7 +104,7 @@ const EncryptForm = () => {
       </Group>
       <Group>
         <Form.Item style={{ width: '50%' }} name="encodingFrom">
-          <Select defaultValue={encodings[0].name}>
+          <Select>
             {encodings.map(el => (
               <Select.Option key={el.id} value={el.name}>
                 {el.title}
@@ -101,7 +113,7 @@ const EncryptForm = () => {
           </Select>
         </Form.Item>
         <Form.Item style={{ width: '50%' }} name="encodingTo">
-          <Select defaultValue={encodings[1].name}>
+          <Select>
             {encodings.slice(1, 3).map(el => (
               <Select.Option key={el.id} value={el.name}>
                 {el.title}
@@ -111,7 +123,7 @@ const EncryptForm = () => {
         </Form.Item>
       </Group>
       <Form.Item wrapperCol={{ md: { span: '12', offset: '6' } }}>
-        <Button type="submit" loading={isLoading}>
+        <Button htmlType="submit" loading={isLoading}>
           ENCRYPT
         </Button>
       </Form.Item>
