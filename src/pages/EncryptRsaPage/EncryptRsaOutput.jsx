@@ -42,11 +42,7 @@ const EncryptRsaOutput = () => {
         />
       </Form.Item>
       <Form.Item wrapperCol={{ md: { span: '12', offset: '6' } }}>
-        <Button
-          href={jsonOutput}
-          icon="download"
-          download="rsa-encrypted-data.json"
-        >
+        <Button href={jsonOutput} download="rsa-encrypted-data.json">
           Save to JSON
         </Button>
       </Form.Item>
