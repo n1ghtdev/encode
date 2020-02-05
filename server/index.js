@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { resolve } = require('path');
 const dotenv = require('dotenv');
+const compression = require('compression');
 
 const router = require('./routes');
 
@@ -9,6 +10,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(compression());
 
 app.use('/', express.static(resolve('build')));
 
